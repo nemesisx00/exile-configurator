@@ -9,19 +9,16 @@ namespace ExileConfigurator
 {
 	public partial class MainForm : Form
     {
-		Dictionary<string, Item> items;
+		List<Item> items;
 
         public MainForm()
         {
             InitializeComponent();
 
-			items = new Dictionary<string, Item>();
-
-			var il = new List<Item>();
-			il.AddRange(items.Values);
-			itemList.DataSource = il;
-			itemList.DisplayMember = "Name";
-			itemList.ValueMember = "Name";
+			items = new List<Item>();
+			
+			itemList.DataSource = items;
+			itemList.ValueMember = "Label";
 			itemMod.DataSource = Enum.GetValues(typeof(Mod));
 			itemType.DataSource = Enum.GetValues(typeof(ItemType));
 		}
@@ -39,17 +36,17 @@ namespace ExileConfigurator
 		{
 			item.Mod = mod;
 			item.Type = type;
-			item.Name = name;
-			item.ClassName = className;
+			item.Label = name;
+			item.Id = className;
 			item.Price = price;
 		}
 
 		private void loadItem(Item item)
 		{
-			itemName.Text = item.Name;
-			itemClassName.Text = item.ClassName;
-			itemMod.SelectedValue = item.Mod;
-			itemType.SelectedValue = item.Type;
+			itemName.Text = item.Label;
+			itemClassName.Text = item.Id;
+			itemMod.SelectedItem = item.Mod;
+			itemType.SelectedItem = item.Type;
 			itemPrice.Value = item.Price;
 		}
 
@@ -69,11 +66,8 @@ namespace ExileConfigurator
 
 		private void menuFileTest_Click(object sender, EventArgs e)
 		{
-			var il = new List<Item>();
-			il.AddRange(items.Values);
-
 			var s = new Serializer<List<Item>>();
-			string json = s.serialize(il);
+			string json = s.serialize(items);
 			
 			testText.Text = json;
 		}
@@ -87,36 +81,29 @@ namespace ExileConfigurator
 		{
 			string name = itemName.Text;
 
-			if(!items.ContainsKey(name))
+			var item = items.FirstOrDefault(o => o.Label == name);
+			if(item != null)
 			{
-				var i = new Item();
-				updateItem(i, getMod(), getType(), name, itemClassName.Text, (int)itemPrice.Value);
-
-				items.Add(i.Name, i);
-
-				itemList.DataSource = null;
-				var il = new List<Item>();
-				il.AddRange(items.Values);
-				itemList.DataSource = il;
+				updateItem(item, getMod(), getType(), name, itemClassName.Text, (int)itemPrice.Value);
 			}
 			else
 			{
-				Item i;
-				items.TryGetValue(name, out i);
+				item = new Item();
+				updateItem(item, getMod(), getType(), name, itemClassName.Text, (int)itemPrice.Value);
 
-				if(i != null)
-					updateItem(i, getMod(), getType(), name, itemClassName.Text, (int)itemPrice.Value);
+				items.Add(item);
+
+				itemList.DataSource = null;
+				itemList.DataSource = items;
 			}
 		}
 
 		private void itemList_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			string name = itemList.GetItemText(itemList.SelectedItem);
-			Item i;
-			items.TryGetValue(name, out i);
-
-			if(i != null)
-				loadItem(i);
+			var item = items.FirstOrDefault(o => o.Label == name);
+			if (item != null)
+				loadItem(item);
 		}
 	}
 }
