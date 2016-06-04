@@ -89,10 +89,10 @@ namespace ExileConfigurator.IO
 			return output;
 		}
 
-	private List<Item> sortItems(List<Item> items)
-	{
-		var sorted = items.OrderBy(o => o.Mod).ThenBy(o => o.Type).ToList();
-		return sorted;
+		private List<Item> sortItems(List<Item> items)
+		{
+			var sorted = items.OrderBy(o => o.Mod).ThenBy(o => o.Type).ToList();
+			return sorted;
+		}
 	}
-}
 }
