@@ -143,6 +143,8 @@ namespace ExileConfigurator
 		#endregion
 
 		#region Event Handlers
+
+		#region Menu Items
 		private void fileOpen_Click(object sender, EventArgs e)
 		{
 			loadListFromFile();
@@ -158,6 +160,24 @@ namespace ExileConfigurator
 			Application.Exit();
 		}
 
+		private void exportVendor_Click(object sender, EventArgs e)
+		{
+			var vf = new VendorFormatter();
+			string output = vf.formatClassList(items);
+			output += Environment.NewLine + Environment.NewLine;
+			output += vf.formatVendorList(items);
+
+			FileUtil.writeFileDialog(output, FileUtil.DefaultFileNameExportVendor, FileUtil.FileDialogFilterTextFiles);
+		}
+
+		private void helpAbout_Click(object sender, EventArgs e)
+		{
+			var about = new AboutForm();
+			about.Show();
+		}
+		#endregion
+
+		#region Controls
 		private void itemList_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			string name = itemList.GetItemText(itemList.SelectedItem);
@@ -194,16 +214,8 @@ namespace ExileConfigurator
 				removeCurrentItem(label);
 			}
 		}
+		#endregion
 
-		private void exportVendor_Click(object sender, EventArgs e)
-		{
-			var vf = new VendorFormatter();
-			string output = vf.formatClassList(items);
-			output += Environment.NewLine + Environment.NewLine;
-			output += vf.formatVendorList(items);
-
-			FileUtil.writeFileDialog(output, FileUtil.DefaultFileNameExportVendor, FileUtil.FileDialogFilterTextFiles);
-		}
 		#endregion
 	}
 }

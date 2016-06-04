@@ -51,6 +51,8 @@
 			this.exportVendor = new System.Windows.Forms.ToolStripMenuItem();
 			this.itemNew = new System.Windows.Forms.Button();
 			this.itemRemove = new System.Windows.Forms.Button();
+			this.menuHelp = new System.Windows.Forms.ToolStripMenuItem();
+			this.helpAbout = new System.Windows.Forms.ToolStripMenuItem();
 			this.mainMenu.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.itemPrice)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.itemQuality)).BeginInit();
@@ -60,7 +62,8 @@
 			// 
 			this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuFile,
-            this.menuExport});
+            this.menuExport,
+            this.menuHelp});
 			this.mainMenu.Location = new System.Drawing.Point(0, 0);
 			this.mainMenu.Name = "mainMenu";
 			this.mainMenu.Size = new System.Drawing.Size(469, 24);
@@ -303,6 +306,21 @@
 			this.itemRemove.UseVisualStyleBackColor = true;
 			this.itemRemove.Click += new System.EventHandler(this.itemRemove_Click);
 			// 
+			// menuHelp
+			// 
+			this.menuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.helpAbout});
+			this.menuHelp.Name = "menuHelp";
+			this.menuHelp.Size = new System.Drawing.Size(44, 20);
+			this.menuHelp.Text = "&Help";
+			// 
+			// helpAbout
+			// 
+			this.helpAbout.Name = "helpAbout";
+			this.helpAbout.Size = new System.Drawing.Size(152, 22);
+			this.helpAbout.Text = "&About";
+			this.helpAbout.Click += new System.EventHandler(this.helpAbout_Click);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -363,6 +381,8 @@
 		private System.Windows.Forms.ToolStripMenuItem exportVendor;
 		private System.Windows.Forms.Button itemNew;
 		private System.Windows.Forms.Button itemRemove;
+		private System.Windows.Forms.ToolStripMenuItem menuHelp;
+		private System.Windows.Forms.ToolStripMenuItem helpAbout;
 	}
 }
 
