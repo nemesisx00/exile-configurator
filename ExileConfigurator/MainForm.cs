@@ -86,6 +86,8 @@ namespace ExileConfigurator
 
 		private void refreshList()
 		{
+			items = items.OrderBy(o => o.Mod).ThenBy(o => o.Type).ThenBy(o => o.Label).ToList();
+
 			fileSave.Enabled = items.Count > 0;
 			itemList.DataSource = null;
 			itemList.DataSource = items;
@@ -155,7 +157,9 @@ namespace ExileConfigurator
 		private void exportVendor_Click(object sender, EventArgs e)
 		{
 			var vf = new VendorFormatter();
-			string output = vf.formatList(items);
+			string output = vf.formatClassList(items);
+			output += Environment.NewLine + Environment.NewLine;
+			output += vf.formatVendorList(items);
 
 			FileUtil.writeFileDialog(output, FileUtil.DefaultFileNameExportVendor, FileUtil.FileDialogFilterTextFiles);
 		}
