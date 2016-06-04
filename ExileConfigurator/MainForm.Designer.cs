@@ -150,7 +150,7 @@
 			this.itemMod.FormattingEnabled = true;
 			this.itemMod.Location = new System.Drawing.Point(278, 80);
 			this.itemMod.Name = "itemMod";
-			this.itemMod.Size = new System.Drawing.Size(121, 21);
+			this.itemMod.Size = new System.Drawing.Size(179, 21);
 			this.itemMod.TabIndex = 3;
 			// 
 			// itemModLabel
@@ -173,7 +173,7 @@
 			this.itemType.FormattingEnabled = true;
 			this.itemType.Location = new System.Drawing.Point(278, 108);
 			this.itemType.Name = "itemType";
-			this.itemType.Size = new System.Drawing.Size(121, 21);
+			this.itemType.Size = new System.Drawing.Size(179, 21);
 			this.itemType.TabIndex = 4;
 			// 
 			// itemTypeLabel
@@ -200,7 +200,7 @@
             0,
             0});
 			this.itemPrice.Name = "itemPrice";
-			this.itemPrice.Size = new System.Drawing.Size(120, 20);
+			this.itemPrice.Size = new System.Drawing.Size(178, 20);
 			this.itemPrice.TabIndex = 5;
 			this.itemPrice.Value = new decimal(new int[] {
             1,
@@ -248,7 +248,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.itemQuality.Location = new System.Drawing.Point(278, 162);
 			this.itemQuality.Name = "itemQuality";
-			this.itemQuality.Size = new System.Drawing.Size(120, 20);
+			this.itemQuality.Size = new System.Drawing.Size(178, 20);
 			this.itemQuality.TabIndex = 6;
 			this.itemQuality.Value = new decimal(new int[] {
             1,
