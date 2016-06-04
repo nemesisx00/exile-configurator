@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace ExileConfigurator.Serialization
+namespace ExileConfigurator.IO
 {
 	public class Serializer<T>
 	{

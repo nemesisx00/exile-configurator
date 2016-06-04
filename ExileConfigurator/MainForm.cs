@@ -1,5 +1,5 @@
 ﻿using ExileConfigurator.Data;
-using ExileConfigurator.Serialization;
+using ExileConfigurator.IO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
