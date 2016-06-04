@@ -60,6 +60,8 @@
     <Compile Include="Data\Item.cs" />
     <Compile Include="Data\ItemType.cs" />
     <Compile Include="Data\Mod.cs" />
+    <Compile Include="IO\FileUtil.cs" />
+    <Compile Include="IO\VendorFormatter.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
