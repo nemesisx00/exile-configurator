@@ -22,9 +22,11 @@ namespace ExileConfigurator
 			itemMod.DataSource = Enum.GetValues(typeof(Mod));
 			itemType.DataSource = Enum.GetValues(typeof(ItemType));
 
+			clearItemFields();
 			refreshList();
 		}
 
+		#region Private Methods
 		/// <summary>
 		/// Convenience method to update the contents of an Item instance.
 		/// </summary>
@@ -68,6 +70,27 @@ namespace ExileConfigurator
 				items.Add(item);
 				refreshList();
 			}
+		}
+
+		private void removeCurrentItem(string label)
+		{
+			var item = items.FirstOrDefault(o => o.Label == label);
+			if(item != null)
+			{
+				items.Remove(item);
+				clearItemFields();
+				refreshList();
+			}
+		}
+
+		private void clearItemFields()
+		{
+			itemName.Text = string.Empty;
+			itemClassName.Text = string.Empty;
+			itemMod.SelectedItem = null;
+			itemType.SelectedItem = null;
+			itemPrice.Value = 0;
+			itemQuality.Value = 0;
 		}
 
 		private Mod getMod()
@@ -117,7 +140,9 @@ namespace ExileConfigurator
 				}
 			}
 		}
+		#endregion
 
+		#region Event Handlers
 		private void fileOpen_Click(object sender, EventArgs e)
 		{
 			loadListFromFile();
@@ -141,6 +166,12 @@ namespace ExileConfigurator
 				loadItem(item);
 		}
 
+		private void itemNew_Click(object sender, EventArgs e)
+		{
+			clearItemFields();
+			itemName.Focus();
+		}
+
 		private void itemSave_Click(object sender, EventArgs e)
 		{
 			string label = itemName.Text;
@@ -154,6 +185,16 @@ namespace ExileConfigurator
 				saveCurrentItem(label);
 		}
 
+		private void itemRemove_Click(object sender, EventArgs e)
+		{
+			var response = MessageBox.Show("Are you sure you want to remove this item?", "Remove Item?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+			if(response == DialogResult.Yes)
+			{
+				string label = itemName.Text;
+				removeCurrentItem(label);
+			}
+		}
+
 		private void exportVendor_Click(object sender, EventArgs e)
 		{
 			var vf = new VendorFormatter();
@@ -163,5 +204,6 @@ namespace ExileConfigurator
 
 			FileUtil.writeFileDialog(output, FileUtil.DefaultFileNameExportVendor, FileUtil.FileDialogFilterTextFiles);
 		}
+		#endregion
 	}
 }
