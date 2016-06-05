@@ -317,8 +317,8 @@
 			// helpAbout
 			// 
 			this.helpAbout.Name = "helpAbout";
-			this.helpAbout.Size = new System.Drawing.Size(152, 22);
-			this.helpAbout.Text = "&About";
+			this.helpAbout.Size = new System.Drawing.Size(204, 22);
+			this.helpAbout.Text = "&About Exile Configurator";
 			this.helpAbout.Click += new System.EventHandler(this.helpAbout_Click);
 			// 
 			// MainForm

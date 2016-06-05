@@ -2,9 +2,8 @@
 using ExileConfigurator.IO;
 using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Configuration;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace ExileConfigurator
@@ -16,6 +15,8 @@ namespace ExileConfigurator
         public MainForm()
         {
             InitializeComponent();
+
+			this.Text += " " + ConfigurationManager.AppSettings["version"];
 
 			items = new List<Item>();
 			

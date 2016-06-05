@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Configuration;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace ExileConfigurator
@@ -16,6 +10,19 @@ namespace ExileConfigurator
 		public AboutForm()
 		{
 			InitializeComponent();
+
+			aboutVersion.Text += " " + ConfigurationManager.AppSettings["version"];
+			aboutLicense.SelectionChanged += new System.EventHandler(aboutLicense_SelectionChanged);
+		}
+
+		public void aboutLicense_SelectionChanged(object sender, EventArgs e)
+		{
+			aboutLicense.SelectionLength = 0;
+		}
+
+		private void aboutProjectLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		{
+			Process.Start("https://bitbucket.org/nemesisx00/exile-configurator");
 		}
 	}
 }
