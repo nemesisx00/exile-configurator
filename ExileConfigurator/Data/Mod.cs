@@ -2,8 +2,9 @@
 {
 	public enum Mod
 	{
-		HLC,
+		NIArms,
 		MAS,
-		CUP
+		CUP,
+		RHS
 	}
 }
