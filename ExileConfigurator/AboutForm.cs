@@ -22,7 +22,8 @@ namespace ExileConfigurator
 
 		private void aboutProjectLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
-			Process.Start("https://bitbucket.org/nemesisx00/exile-configurator");
+			var projectUrl = ConfigurationManager.AppSettings["projectUrl"];
+			Process.Start(projectUrl);
 		}
 	}
 }

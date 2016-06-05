@@ -33,6 +33,10 @@
 			this.fileOpen = new System.Windows.Forms.ToolStripMenuItem();
 			this.fileSave = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuFileExit = new System.Windows.Forms.ToolStripMenuItem();
+			this.menuExport = new System.Windows.Forms.ToolStripMenuItem();
+			this.exportVendor = new System.Windows.Forms.ToolStripMenuItem();
+			this.menuHelp = new System.Windows.Forms.ToolStripMenuItem();
+			this.helpAbout = new System.Windows.Forms.ToolStripMenuItem();
 			this.itemName = new System.Windows.Forms.TextBox();
 			this.itemNameLabel = new System.Windows.Forms.Label();
 			this.itemClassNameLabel = new System.Windows.Forms.Label();
@@ -47,12 +51,10 @@
 			this.itemList = new System.Windows.Forms.ListBox();
 			this.itemQuality = new System.Windows.Forms.NumericUpDown();
 			this.itemQualityLabel = new System.Windows.Forms.Label();
-			this.menuExport = new System.Windows.Forms.ToolStripMenuItem();
-			this.exportVendor = new System.Windows.Forms.ToolStripMenuItem();
 			this.itemNew = new System.Windows.Forms.Button();
 			this.itemRemove = new System.Windows.Forms.Button();
-			this.menuHelp = new System.Windows.Forms.ToolStripMenuItem();
-			this.helpAbout = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+			this.helpReportIssue = new System.Windows.Forms.ToolStripMenuItem();
 			this.mainMenu.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.itemPrice)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.itemQuality)).BeginInit();
@@ -83,23 +85,55 @@
 			// fileOpen
 			// 
 			this.fileOpen.Name = "fileOpen";
-			this.fileOpen.Size = new System.Drawing.Size(152, 22);
+			this.fileOpen.Size = new System.Drawing.Size(103, 22);
 			this.fileOpen.Text = "&Open";
 			this.fileOpen.Click += new System.EventHandler(this.fileOpen_Click);
 			// 
 			// fileSave
 			// 
 			this.fileSave.Name = "fileSave";
-			this.fileSave.Size = new System.Drawing.Size(152, 22);
+			this.fileSave.Size = new System.Drawing.Size(103, 22);
 			this.fileSave.Text = "&Save";
 			this.fileSave.Click += new System.EventHandler(this.fileSave_Click);
 			// 
 			// menuFileExit
 			// 
 			this.menuFileExit.Name = "menuFileExit";
-			this.menuFileExit.Size = new System.Drawing.Size(152, 22);
+			this.menuFileExit.Size = new System.Drawing.Size(103, 22);
 			this.menuFileExit.Text = "E&xit";
 			this.menuFileExit.Click += new System.EventHandler(this.menuFileExit_Click);
+			// 
+			// menuExport
+			// 
+			this.menuExport.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exportVendor});
+			this.menuExport.Name = "menuExport";
+			this.menuExport.Size = new System.Drawing.Size(52, 20);
+			this.menuExport.Text = "&Export";
+			// 
+			// exportVendor
+			// 
+			this.exportVendor.Name = "exportVendor";
+			this.exportVendor.Size = new System.Drawing.Size(132, 22);
+			this.exportVendor.Text = "&Vendor List";
+			this.exportVendor.Click += new System.EventHandler(this.exportVendor_Click);
+			// 
+			// menuHelp
+			// 
+			this.menuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.helpAbout,
+            this.toolStripSeparator1,
+            this.helpReportIssue});
+			this.menuHelp.Name = "menuHelp";
+			this.menuHelp.Size = new System.Drawing.Size(44, 20);
+			this.menuHelp.Text = "&Help";
+			// 
+			// helpAbout
+			// 
+			this.helpAbout.Name = "helpAbout";
+			this.helpAbout.Size = new System.Drawing.Size(204, 22);
+			this.helpAbout.Text = "&About Exile Configurator";
+			this.helpAbout.Click += new System.EventHandler(this.helpAbout_Click);
 			// 
 			// itemName
 			// 
@@ -271,21 +305,6 @@
 			this.itemQualityLabel.TabIndex = 16;
 			this.itemQualityLabel.Text = "Quality";
 			// 
-			// menuExport
-			// 
-			this.menuExport.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exportVendor});
-			this.menuExport.Name = "menuExport";
-			this.menuExport.Size = new System.Drawing.Size(52, 20);
-			this.menuExport.Text = "&Export";
-			// 
-			// exportVendor
-			// 
-			this.exportVendor.Name = "exportVendor";
-			this.exportVendor.Size = new System.Drawing.Size(152, 22);
-			this.exportVendor.Text = "&Vendor List";
-			this.exportVendor.Click += new System.EventHandler(this.exportVendor_Click);
-			// 
 			// itemNew
 			// 
 			this.itemNew.Location = new System.Drawing.Point(220, 188);
@@ -306,20 +325,17 @@
 			this.itemRemove.UseVisualStyleBackColor = true;
 			this.itemRemove.Click += new System.EventHandler(this.itemRemove_Click);
 			// 
-			// menuHelp
+			// toolStripSeparator1
 			// 
-			this.menuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.helpAbout});
-			this.menuHelp.Name = "menuHelp";
-			this.menuHelp.Size = new System.Drawing.Size(44, 20);
-			this.menuHelp.Text = "&Help";
+			this.toolStripSeparator1.Name = "toolStripSeparator1";
+			this.toolStripSeparator1.Size = new System.Drawing.Size(201, 6);
 			// 
-			// helpAbout
+			// helpReportIssue
 			// 
-			this.helpAbout.Name = "helpAbout";
-			this.helpAbout.Size = new System.Drawing.Size(204, 22);
-			this.helpAbout.Text = "&About Exile Configurator";
-			this.helpAbout.Click += new System.EventHandler(this.helpAbout_Click);
+			this.helpReportIssue.Name = "helpReportIssue";
+			this.helpReportIssue.Size = new System.Drawing.Size(204, 22);
+			this.helpReportIssue.Text = "Report Issue";
+			this.helpReportIssue.Click += new System.EventHandler(this.helpReportIssue_Click);
 			// 
 			// MainForm
 			// 
@@ -383,6 +399,8 @@
 		private System.Windows.Forms.Button itemRemove;
 		private System.Windows.Forms.ToolStripMenuItem menuHelp;
 		private System.Windows.Forms.ToolStripMenuItem helpAbout;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+		private System.Windows.Forms.ToolStripMenuItem helpReportIssue;
 	}
 }
 

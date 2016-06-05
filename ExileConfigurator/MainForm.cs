@@ -3,6 +3,7 @@ using ExileConfigurator.IO;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -175,6 +176,12 @@ namespace ExileConfigurator
 		{
 			var about = new AboutForm();
 			about.Show();
+		}
+
+		private void helpReportIssue_Click(object sender, EventArgs e)
+		{
+			var supportUrl = ConfigurationManager.AppSettings["supportUrl"];
+			Process.Start(supportUrl);
 		}
 		#endregion
 

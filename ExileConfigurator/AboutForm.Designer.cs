@@ -41,21 +41,21 @@
 			this.aboutAuthor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.aboutAuthor.Location = new System.Drawing.Point(12, 9);
 			this.aboutAuthor.Name = "aboutAuthor";
-			this.aboutAuthor.Size = new System.Drawing.Size(247, 15);
+			this.aboutAuthor.Size = new System.Drawing.Size(223, 15);
 			this.aboutAuthor.TabIndex = 1;
-			this.aboutAuthor.Text = "Created By: Peter \'Nemesis X00\' Lunneberg";
+			this.aboutAuthor.Text = "Author: Peter \'Nemesis X00\' Lunneberg";
 			// 
 			// aboutProjectLink
 			// 
 			this.aboutProjectLink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.aboutProjectLink.AutoSize = true;
 			this.aboutProjectLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.aboutProjectLink.Location = new System.Drawing.Point(392, 9);
+			this.aboutProjectLink.Location = new System.Drawing.Point(523, 9);
 			this.aboutProjectLink.Name = "aboutProjectLink";
-			this.aboutProjectLink.Size = new System.Drawing.Size(280, 15);
+			this.aboutProjectLink.Size = new System.Drawing.Size(149, 15);
 			this.aboutProjectLink.TabIndex = 4;
 			this.aboutProjectLink.TabStop = true;
-			this.aboutProjectLink.Text = "https://bitbucket.org/nemesisx00/exile-configurator";
+			this.aboutProjectLink.Text = "Source Code on BitBucket";
 			this.aboutProjectLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.aboutProjectLink_LinkClicked);
 			// 
 			// aboutLicense
@@ -69,7 +69,7 @@
 			this.aboutLicense.Name = "aboutLicense";
 			this.aboutLicense.ReadOnly = true;
 			this.aboutLicense.ShortcutsEnabled = false;
-			this.aboutLicense.Size = new System.Drawing.Size(657, 252);
+			this.aboutLicense.Size = new System.Drawing.Size(657, 262);
 			this.aboutLicense.TabIndex = 6;
 			this.aboutLicense.Text = resources.GetString("aboutLicense.Text");
 			// 
@@ -87,16 +87,16 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(684, 321);
+			this.ClientSize = new System.Drawing.Size(684, 331);
 			this.Controls.Add(this.aboutVersion);
 			this.Controls.Add(this.aboutLicense);
 			this.Controls.Add(this.aboutProjectLink);
 			this.Controls.Add(this.aboutAuthor);
 			this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.MaximizeBox = false;
-			this.MaximumSize = new System.Drawing.Size(700, 360);
+			this.MaximumSize = new System.Drawing.Size(700, 370);
 			this.MinimizeBox = false;
-			this.MinimumSize = new System.Drawing.Size(575, 250);
+			this.MinimumSize = new System.Drawing.Size(550, 250);
 			this.Name = "AboutForm";
 			this.ShowIcon = false;
 			this.Text = "About Exile Configurator";
