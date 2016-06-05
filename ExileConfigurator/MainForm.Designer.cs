@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			this.mainMenu = new System.Windows.Forms.MenuStrip();
 			this.menuFile = new System.Windows.Forms.ToolStripMenuItem();
 			this.fileOpen = new System.Windows.Forms.ToolStripMenuItem();
@@ -37,6 +38,8 @@
 			this.exportVendor = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuHelp = new System.Windows.Forms.ToolStripMenuItem();
 			this.helpAbout = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+			this.helpReportIssue = new System.Windows.Forms.ToolStripMenuItem();
 			this.itemName = new System.Windows.Forms.TextBox();
 			this.itemNameLabel = new System.Windows.Forms.Label();
 			this.itemClassNameLabel = new System.Windows.Forms.Label();
@@ -53,8 +56,6 @@
 			this.itemQualityLabel = new System.Windows.Forms.Label();
 			this.itemNew = new System.Windows.Forms.Button();
 			this.itemRemove = new System.Windows.Forms.Button();
-			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-			this.helpReportIssue = new System.Windows.Forms.ToolStripMenuItem();
 			this.mainMenu.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.itemPrice)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.itemQuality)).BeginInit();
@@ -134,6 +135,18 @@
 			this.helpAbout.Size = new System.Drawing.Size(204, 22);
 			this.helpAbout.Text = "&About Exile Configurator";
 			this.helpAbout.Click += new System.EventHandler(this.helpAbout_Click);
+			// 
+			// toolStripSeparator1
+			// 
+			this.toolStripSeparator1.Name = "toolStripSeparator1";
+			this.toolStripSeparator1.Size = new System.Drawing.Size(201, 6);
+			// 
+			// helpReportIssue
+			// 
+			this.helpReportIssue.Name = "helpReportIssue";
+			this.helpReportIssue.Size = new System.Drawing.Size(204, 22);
+			this.helpReportIssue.Text = "Report Issue";
+			this.helpReportIssue.Click += new System.EventHandler(this.helpReportIssue_Click);
 			// 
 			// itemName
 			// 
@@ -325,18 +338,6 @@
 			this.itemRemove.UseVisualStyleBackColor = true;
 			this.itemRemove.Click += new System.EventHandler(this.itemRemove_Click);
 			// 
-			// toolStripSeparator1
-			// 
-			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(201, 6);
-			// 
-			// helpReportIssue
-			// 
-			this.helpReportIssue.Name = "helpReportIssue";
-			this.helpReportIssue.Size = new System.Drawing.Size(204, 22);
-			this.helpReportIssue.Text = "Report Issue";
-			this.helpReportIssue.Click += new System.EventHandler(this.helpReportIssue_Click);
-			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -359,6 +360,7 @@
 			this.Controls.Add(this.itemNameLabel);
 			this.Controls.Add(this.itemName);
 			this.Controls.Add(this.mainMenu);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MainMenuStrip = this.mainMenu;
 			this.MinimumSize = new System.Drawing.Size(485, 265);
 			this.Name = "MainForm";

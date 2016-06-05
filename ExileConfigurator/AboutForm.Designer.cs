@@ -41,9 +41,9 @@
 			this.aboutAuthor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.aboutAuthor.Location = new System.Drawing.Point(12, 9);
 			this.aboutAuthor.Name = "aboutAuthor";
-			this.aboutAuthor.Size = new System.Drawing.Size(223, 15);
+			this.aboutAuthor.Size = new System.Drawing.Size(225, 15);
 			this.aboutAuthor.TabIndex = 1;
-			this.aboutAuthor.Text = "Author: Peter \'Nemesis X00\' Lunneberg";
+			this.aboutAuthor.Text = "Author: Peter Lunneberg (Nemesis X00)";
 			// 
 			// aboutProjectLink
 			// 
@@ -93,6 +93,7 @@
 			this.Controls.Add(this.aboutProjectLink);
 			this.Controls.Add(this.aboutAuthor);
 			this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MaximizeBox = false;
 			this.MaximumSize = new System.Drawing.Size(700, 370);
 			this.MinimizeBox = false;
