@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace ExileConfigurator.IO
 {
@@ -11,7 +10,6 @@ namespace ExileConfigurator.IO
 	/// </summary>
 	public class VendorFormatter
 	{
-		private const string RegexSplitCapitals = "((?<=\\p{Ll})\\p{Lu}|\\p{Lu}(?=\\p{Ll}))";
 		private const string FormatGroupComment = "///////////////////////////////////////////////////////////////////////////////\r\n// {0}\r\n///////////////////////////////////////////////////////////////////////////////";
 		private const string FormatClassString = "class {0}	{{ quality = {1}; price = {2}; }};";
 		private const string FormatGroupString = "class {0}\r\n{{\r\n\tname = \"{1}\";\r\n\ticon = \"a3\\ui_f\\data\\gui\\Rsc\\RscDisplayArsenal\\itemacc_ca.paa\";\r\n\titems[] =\r\n\t{{\r\n\t\t{2}\r\n\t}};\r\n}};";
@@ -32,7 +30,7 @@ namespace ExileConfigurator.IO
 				if(currentType != i.Type)
 					currentType = i.Type;
 
-				var temp = string.Format("{0} {1}", currentMod.ToString(), currentType.ToString());
+				var temp = string.Format("{0} - {1}", currentMod.ToString(), currentType.ToString());
 				if(!groupLabel.Equals(temp))
 				{
 					groupLabel = temp;
@@ -63,7 +61,7 @@ namespace ExileConfigurator.IO
 				if(currentType != i.Type)
 					currentType = i.Type;
 
-				var groupName = string.Format("{0}{1}", currentMod.ToString(), currentType.ToString());
+				var groupName = string.Format("{0} - {1}", currentMod.ToString(), currentType.ToString());
 				if(!groupLists.ContainsKey(groupName))
 					groupLists.Add(groupName, new List<string>());
 
@@ -81,9 +79,8 @@ namespace ExileConfigurator.IO
 						idList += ",\r\n\t\t";
 					idList += string.Format(FormatClassName, id);
 				}
-
-				var rgx = new Regex(RegexSplitCapitals);
-				output += string.Format(FormatGroupString, key, rgx.Replace(key, " $1").Trim(), idList) + Environment.NewLine + Environment.NewLine;
+				
+				output += string.Format(FormatGroupString, key.Replace("-", "").Replace(" ", ""), key, idList) + Environment.NewLine + Environment.NewLine;
 			}
 
 			return output;
