@@ -22,8 +22,8 @@ namespace ExileConfigurator.IO
 			var sorted = sortItems(items);
 
 			string output = "";
-			Mod currentMod = (Mod)Enum.GetValues(typeof(Mod)).GetValue(0);
-			ItemType currentType = ItemType.Handgun;
+			string currentMod = null;
+			string currentType = null;
 			string groupLabel = string.Empty;
 			foreach(var i in sorted)
 			{
@@ -53,8 +53,8 @@ namespace ExileConfigurator.IO
 			string output = "";
 			var groupLists = new Dictionary<string, List<string>>();
 
-			Mod currentMod = (Mod)Enum.GetValues(typeof(Mod)).GetValue(0);
-			ItemType currentType = ItemType.Handgun;
+			string currentMod = null;
+			string currentType = null;
 			string groupLabel = string.Empty;
 			foreach(var i in sorted)
 			{

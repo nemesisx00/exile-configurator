@@ -5,13 +5,18 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace ExileConfigurator
 {
 	public partial class MainForm : Form
     {
-		List<Item> items;
+		private const string RegexSplitCapitals = "((?<=\\p{Ll})\\p{Lu}|\\p{Lu}(?=\\p{Ll}))";
+
+		protected List<Item> items;
+		protected List<string> mods;
+		protected List<string> types;
 
         public MainForm()
         {
@@ -20,15 +25,52 @@ namespace ExileConfigurator
 			this.Text += " " + ConfigurationManager.AppSettings["version"];
 
 			items = new List<Item>();
-			
-			itemMod.DataSource = Enum.GetValues(typeof(Mod));
-			itemType.DataSource = Enum.GetValues(typeof(ItemType));
+			mods = new List<string>();
+			types = new List<string>();
+
+			var rgx = new Regex(RegexSplitCapitals);
+			foreach(ItemType it in Enum.GetValues(typeof(ItemType)))
+			{
+				types.Add(rgx.Replace(it.ToString(), " $1").Trim());
+			}
+
+			itemMod.DataSource = mods;
+			itemType.DataSource = types;
 
 			clearItemFields();
 			refreshList();
+
+			attachEventListeners();
 		}
 
 		#region Private Methods
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="mod"></param>
+		private void updateModList(string mod)
+		{
+			if(!mods.Contains(mod))
+			{
+				mods.Add(mod);
+				refreshModsList();
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="type"></param>
+		private void updateTypeList(string type)
+		{
+			if(!types.Contains(type))
+			{
+				types.Add(type);
+				refreshTypesList();
+			}
+		}
+
 		/// <summary>
 		/// Convenience method to update the contents of an Item instance.
 		/// </summary>
@@ -38,8 +80,11 @@ namespace ExileConfigurator
 		/// <param name="name"></param>
 		/// <param name="className"></param>
 		/// <param name="price"></param>
-		private void updateItem(Item item, Mod mod, ItemType type, string name, string className, int price, int quality)
+		private void updateItem(Item item, string mod, string type, string name, string className, int price, int quality)
 		{
+			updateModList(mod);
+			updateTypeList(type);
+
 			item.Mod = mod;
 			item.Type = type;
 			item.Label = name;
@@ -63,12 +108,12 @@ namespace ExileConfigurator
 			var item = items.FirstOrDefault(o => o.Label == label);
 			if (item != null)
 			{
-				updateItem(item, getMod(), getType(), label, itemClassName.Text, (int)itemPrice.Value, (int)itemQuality.Value);
+				updateItem(item, itemMod.Text, itemType.Text, label, itemClassName.Text, (int)itemPrice.Value, (int)itemQuality.Value);
 			}
 			else
 			{
 				item = new Item();
-				updateItem(item, getMod(), getType(), label, itemClassName.Text, (int)itemPrice.Value, (int)itemQuality.Value);
+				updateItem(item, itemMod.Text, itemType.Text, label, itemClassName.Text, (int)itemPrice.Value, (int)itemQuality.Value);
 				items.Add(item);
 				refreshList();
 			}
@@ -89,24 +134,10 @@ namespace ExileConfigurator
 		{
 			itemName.Text = string.Empty;
 			itemClassName.Text = string.Empty;
-			itemMod.SelectedItem = null;
-			itemType.SelectedItem = null;
+			itemMod.Text = string.Empty;
+			itemType.Text = string.Empty;
 			itemPrice.Value = 0;
 			itemQuality.Value = 0;
-		}
-
-		private Mod getMod()
-		{
-			Mod mod;
-			Enum.TryParse<Mod>(itemMod.SelectedValue.ToString(), out mod);
-			return mod;
-		}
-
-		private ItemType getType()
-		{
-			ItemType type;
-			Enum.TryParse<ItemType>(itemType.SelectedValue.ToString(), out type);
-			return type;
 		}
 
 		private void refreshList()
@@ -116,6 +147,22 @@ namespace ExileConfigurator
 			fileSave.Enabled = items.Count > 0;
 			itemList.DataSource = null;
 			itemList.DataSource = items;
+		}
+
+		private void refreshModsList()
+		{
+			mods.Sort();
+
+			itemMod.DataSource = null;
+			itemMod.DataSource = mods;
+		}
+
+		private void refreshTypesList()
+		{
+			types.Sort();
+			
+			itemType.DataSource = null;
+			itemType.DataSource = types;
 		}
 
 		private void saveListToFile()
@@ -135,9 +182,21 @@ namespace ExileConfigurator
 			{
 				var s = new Serializer<List<Item>>();
 				var list = s.fromJson(json);
-				if (list != null && list.Count > 0)
+
+				if(list != null && list.Count > 0)
 				{
+					foreach(var i in list)
+					{
+						if(!mods.Contains(i.Mod))
+							mods.Add(i.Mod);
+						if(!types.Contains(i.Type))
+							types.Add(i.Type);
+					}
+
 					items = list;
+
+					refreshModsList();
+					refreshTypesList();
 					refreshList();
 				}
 			}
@@ -145,6 +204,14 @@ namespace ExileConfigurator
 		#endregion
 
 		#region Event Handlers
+
+		/// <summary>
+		/// 
+		/// </summary>
+		private void attachEventListeners()
+		{
+			itemList.Click += itemList_Click;
+		}
 
 		#region Menu Items
 		private void fileOpen_Click(object sender, EventArgs e)
@@ -186,6 +253,14 @@ namespace ExileConfigurator
 		#endregion
 
 		#region Controls
+		private void itemList_Click(object sender, EventArgs e)
+		{
+			string name = itemList.GetItemText(itemList.SelectedItem);
+			var item = items.FirstOrDefault(o => o.Label == name);
+			if(item != null)
+				loadItem(item);
+		}
+
 		private void itemList_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			string name = itemList.GetItemText(itemList.SelectedItem);

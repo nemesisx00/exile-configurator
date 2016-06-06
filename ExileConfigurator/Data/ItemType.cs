@@ -9,8 +9,18 @@
 		LightMachineGun,
 		MarksmenRifle,
 		SniperRifle,
-		Launcher,
+		GrenadeLauncher,
+		AALauncher,
+		ATLauncher,
+		DisposableLauncher,
+		Explosives,
 		Ammunition,
-		Vehicle
+		ExplosiveAmmunition,
+		Optics,
+		Side,
+		Muzzle,
+		Barrel,
+		Vehicle,
+		VehicleAmmunition
 	}
 }
