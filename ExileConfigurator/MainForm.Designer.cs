@@ -56,6 +56,8 @@
 			this.itemQualityLabel = new System.Windows.Forms.Label();
 			this.itemNew = new System.Windows.Forms.Button();
 			this.itemRemove = new System.Windows.Forms.Button();
+			this.itemListSearch = new System.Windows.Forms.TextBox();
+			this.itemListSearchLabel = new System.Windows.Forms.Label();
 			this.mainMenu.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.itemPrice)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.itemQuality)).BeginInit();
@@ -150,8 +152,7 @@
 			// 
 			// itemName
 			// 
-			this.itemName.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+			this.itemName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.itemName.Location = new System.Drawing.Point(278, 28);
 			this.itemName.Name = "itemName";
@@ -160,8 +161,7 @@
 			// 
 			// itemNameLabel
 			// 
-			this.itemNameLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+			this.itemNameLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.itemNameLabel.AutoSize = true;
 			this.itemNameLabel.Location = new System.Drawing.Point(209, 31);
@@ -172,8 +172,7 @@
 			// 
 			// itemClassNameLabel
 			// 
-			this.itemClassNameLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+			this.itemClassNameLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.itemClassNameLabel.AutoSize = true;
 			this.itemClassNameLabel.Location = new System.Drawing.Point(209, 57);
@@ -184,8 +183,7 @@
 			// 
 			// itemClassName
 			// 
-			this.itemClassName.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+			this.itemClassName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.itemClassName.Location = new System.Drawing.Point(278, 54);
 			this.itemClassName.Name = "itemClassName";
@@ -194,8 +192,7 @@
 			// 
 			// itemMod
 			// 
-			this.itemMod.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+			this.itemMod.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.itemMod.FormattingEnabled = true;
 			this.itemMod.Location = new System.Drawing.Point(278, 80);
@@ -205,8 +202,7 @@
 			// 
 			// itemModLabel
 			// 
-			this.itemModLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+			this.itemModLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.itemModLabel.AutoSize = true;
 			this.itemModLabel.Location = new System.Drawing.Point(209, 83);
@@ -217,8 +213,7 @@
 			// 
 			// itemType
 			// 
-			this.itemType.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+			this.itemType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.itemType.FormattingEnabled = true;
 			this.itemType.Location = new System.Drawing.Point(278, 108);
@@ -228,8 +223,7 @@
 			// 
 			// itemTypeLabel
 			// 
-			this.itemTypeLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+			this.itemTypeLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.itemTypeLabel.AutoSize = true;
 			this.itemTypeLabel.Location = new System.Drawing.Point(209, 111);
@@ -240,8 +234,7 @@
 			// 
 			// itemPrice
 			// 
-			this.itemPrice.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+			this.itemPrice.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.itemPrice.Location = new System.Drawing.Point(278, 136);
 			this.itemPrice.Maximum = new decimal(new int[] {
@@ -260,8 +253,7 @@
 			// 
 			// itemPriceLabel
 			// 
-			this.itemPriceLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+			this.itemPriceLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.itemPriceLabel.AutoSize = true;
 			this.itemPriceLabel.Location = new System.Drawing.Point(209, 138);
@@ -272,6 +264,7 @@
 			// 
 			// itemSave
 			// 
+			this.itemSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.itemSave.Location = new System.Drawing.Point(301, 188);
 			this.itemSave.Name = "itemSave";
 			this.itemSave.Size = new System.Drawing.Size(75, 23);
@@ -282,19 +275,19 @@
 			// 
 			// itemList
 			// 
-			this.itemList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+			this.itemList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.itemList.FormattingEnabled = true;
-			this.itemList.Location = new System.Drawing.Point(13, 28);
+			this.itemList.Location = new System.Drawing.Point(13, 54);
 			this.itemList.Name = "itemList";
-			this.itemList.Size = new System.Drawing.Size(190, 186);
+			this.itemList.Size = new System.Drawing.Size(190, 160);
 			this.itemList.TabIndex = 8;
 			this.itemList.SelectedIndexChanged += new System.EventHandler(this.itemList_SelectedIndexChanged);
 			// 
 			// itemQuality
 			// 
-			this.itemQuality.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+			this.itemQuality.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.itemQuality.Location = new System.Drawing.Point(278, 162);
 			this.itemQuality.Name = "itemQuality";
@@ -308,8 +301,7 @@
 			// 
 			// itemQualityLabel
 			// 
-			this.itemQualityLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+			this.itemQualityLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.itemQualityLabel.AutoSize = true;
 			this.itemQualityLabel.Location = new System.Drawing.Point(209, 164);
@@ -320,6 +312,7 @@
 			// 
 			// itemNew
 			// 
+			this.itemNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.itemNew.Location = new System.Drawing.Point(220, 188);
 			this.itemNew.Name = "itemNew";
 			this.itemNew.Size = new System.Drawing.Size(75, 23);
@@ -330,6 +323,7 @@
 			// 
 			// itemRemove
 			// 
+			this.itemRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.itemRemove.Location = new System.Drawing.Point(382, 188);
 			this.itemRemove.Name = "itemRemove";
 			this.itemRemove.Size = new System.Drawing.Size(75, 23);
@@ -338,11 +332,32 @@
 			this.itemRemove.UseVisualStyleBackColor = true;
 			this.itemRemove.Click += new System.EventHandler(this.itemRemove_Click);
 			// 
+			// itemListSearch
+			// 
+			this.itemListSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.itemListSearch.Location = new System.Drawing.Point(62, 27);
+			this.itemListSearch.Name = "itemListSearch";
+			this.itemListSearch.Size = new System.Drawing.Size(141, 20);
+			this.itemListSearch.TabIndex = 19;
+			// 
+			// itemListSearchLabel
+			// 
+			this.itemListSearchLabel.AutoSize = true;
+			this.itemListSearchLabel.Location = new System.Drawing.Point(12, 30);
+			this.itemListSearchLabel.Name = "itemListSearchLabel";
+			this.itemListSearchLabel.Size = new System.Drawing.Size(44, 13);
+			this.itemListSearchLabel.TabIndex = 20;
+			this.itemListSearchLabel.Text = "Search:";
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(469, 226);
+			this.Controls.Add(this.itemListSearchLabel);
+			this.Controls.Add(this.itemListSearch);
 			this.Controls.Add(this.itemRemove);
 			this.Controls.Add(this.itemNew);
 			this.Controls.Add(this.itemQualityLabel);
@@ -403,6 +418,8 @@
 		private System.Windows.Forms.ToolStripMenuItem helpAbout;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 		private System.Windows.Forms.ToolStripMenuItem helpReportIssue;
+		private System.Windows.Forms.TextBox itemListSearch;
+		private System.Windows.Forms.Label itemListSearchLabel;
 	}
 }
 

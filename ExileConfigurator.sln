@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExileConfigurator", "ExileConfigurator\ExileConfigurator.csproj", "{013F9203-0C87-49D7-9CFE-A3804F213148}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExileConfiguratorTests", "ExileConfiguratorTests\ExileConfiguratorTests.csproj", "{66986A3B-BFA1-4293-9D9A-BD0C21CDAA21}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{013F9203-0C87-49D7-9CFE-A3804F213148}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{013F9203-0C87-49D7-9CFE-A3804F213148}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{013F9203-0C87-49D7-9CFE-A3804F213148}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66986A3B-BFA1-4293-9D9A-BD0C21CDAA21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66986A3B-BFA1-4293-9D9A-BD0C21CDAA21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66986A3B-BFA1-4293-9D9A-BD0C21CDAA21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66986A3B-BFA1-4293-9D9A-BD0C21CDAA21}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

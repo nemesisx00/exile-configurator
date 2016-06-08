@@ -1,3 +1,5 @@
 .vs/
 ExileConfigurator/bin/
 ExileConfigurator/obj/
+/ExileConfiguratorTests/bin/
+/ExileConfiguratorTests/obj/

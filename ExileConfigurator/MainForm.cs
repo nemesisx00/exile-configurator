@@ -15,6 +15,7 @@ namespace ExileConfigurator
 		private const string RegexSplitCapitals = "((?<=\\p{Ll})\\p{Lu}|\\p{Lu}(?=\\p{Ll}))";
 
 		protected List<Item> items;
+		protected List<Item> listItems;
 		protected List<string> mods;
 		protected List<string> types;
 
@@ -25,6 +26,7 @@ namespace ExileConfigurator
 			this.Text += " " + ConfigurationManager.AppSettings["version"];
 
 			items = new List<Item>();
+			listItems = new List<Item>();
 			mods = new List<string>();
 			types = new List<string>();
 
@@ -115,8 +117,10 @@ namespace ExileConfigurator
 				item = new Item();
 				updateItem(item, itemMod.Text, itemType.Text, label, itemClassName.Text, (int)itemPrice.Value, (int)itemQuality.Value);
 				items.Add(item);
-				refreshList();
 			}
+			
+			updateList(items);
+			refreshList();
 		}
 
 		private void removeCurrentItem(string label)
@@ -126,6 +130,7 @@ namespace ExileConfigurator
 			{
 				items.Remove(item);
 				clearItemFields();
+				updateList(items);
 				refreshList();
 			}
 		}
@@ -140,13 +145,19 @@ namespace ExileConfigurator
 			itemQuality.Value = 0;
 		}
 
+		private void updateList(List<Item> il)
+		{
+			if(il != null)
+				listItems = il;
+		}
+
 		private void refreshList()
 		{
-			items = items.OrderBy(o => o.Mod).ThenBy(o => o.Type).ThenBy(o => o.Label).ToList();
+			listItems = listItems.OrderBy(o => o.Mod).ThenBy(o => o.Type).ThenBy(o => o.Label).ToList();
 
-			fileSave.Enabled = items.Count > 0;
+			fileSave.Enabled = listItems.Count > 0;
 			itemList.DataSource = null;
-			itemList.DataSource = items;
+			itemList.DataSource = listItems;
 		}
 
 		private void refreshModsList()
@@ -195,6 +206,7 @@ namespace ExileConfigurator
 
 					items = list;
 
+					updateList(items);
 					refreshModsList();
 					refreshTypesList();
 					refreshList();
@@ -210,6 +222,7 @@ namespace ExileConfigurator
 		/// </summary>
 		private void attachEventListeners()
 		{
+			itemListSearch.TextChanged += itemListSearch_TextChanged;
 			itemList.Click += itemList_Click;
 		}
 
@@ -253,6 +266,19 @@ namespace ExileConfigurator
 		#endregion
 
 		#region Controls
+		private void itemListSearch_TextChanged(object sender, EventArgs e)
+		{
+			if(itemListSearch.Text.Length > 0)
+			{
+				List<Item> filtered = items.FindAll(delegate (Item i) { return i.Label.ToLower().Contains(itemListSearch.Text.ToLower()); }).ToList();
+				updateList(filtered);
+			}
+			else
+				updateList(items);
+
+			refreshList();
+		}
+
 		private void itemList_Click(object sender, EventArgs e)
 		{
 			string name = itemList.GetItemText(itemList.SelectedItem);
