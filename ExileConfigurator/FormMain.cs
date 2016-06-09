@@ -1,5 +1,6 @@
 ﻿using ExileConfigurator.Data;
 using ExileConfigurator.IO;
+using ExileConfigurator.Util;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -11,23 +12,25 @@ using System.Windows.Forms;
 
 namespace ExileConfigurator
 {
-	public partial class MainForm : Form
+	public partial class FormMain : Form
     {
 		private const string RegexSplitCapitals = "((?<=\\p{Ll})\\p{Lu}|\\p{Lu}(?=\\p{Ll}))";
-
+		
 		private string currentFilePath;
+		private DuplicateDetector detector;
 		private List<Item> items;
 		private List<Item> listItems;
 		private List<string> mods;
 		private List<string> types;
 
-        public MainForm()
+        public FormMain()
         {
             InitializeComponent();
 
 			this.Text += " " + ConfigurationManager.AppSettings["version"];
-
+			
 			currentFilePath = null;
+			detector = new DuplicateDetector();
 			items = new List<Item>();
 			listItems = new List<Item>();
 			mods = new List<string>();
@@ -102,26 +105,27 @@ namespace ExileConfigurator
 		{
 			itemName.Text = item.Label;
 			itemClassName.Text = item.Id;
-			itemMod.SelectedItem = item.Mod;
-			itemType.SelectedItem = item.Type;
+			itemMod.Text = item.Mod;
+			itemType.Text = item.Type;
 			itemPrice.Value = item.Price;
 			itemQuality.Value = item.Quality;
 		}
 
-		private void saveCurrentItem(string label)
+		private void saveCurrentItem(string id)
 		{
-			var item = items.FirstOrDefault(o => o.Label == label);
+			var item = detector.detect(items, id);
 			if (item != null)
 			{
-				updateItem(item, itemMod.Text, itemType.Text, label, itemClassName.Text, (int)itemPrice.Value, (int)itemQuality.Value);
+				updateItem(item, itemMod.Text, itemType.Text, itemName.Text, id, (int)itemPrice.Value, (int)itemQuality.Value);
 			}
 			else
 			{
 				item = new Item();
-				updateItem(item, itemMod.Text, itemType.Text, label, itemClassName.Text, (int)itemPrice.Value, (int)itemQuality.Value);
+				updateItem(item, itemMod.Text, itemType.Text, itemName.Text, id, (int)itemPrice.Value, (int)itemQuality.Value);
 				items.Add(item);
 			}
-			
+
+			clearItemFields();
 			updateList(items);
 			refreshList();
 		}
@@ -224,8 +228,8 @@ namespace ExileConfigurator
 						if(!types.Contains(i.Type))
 							types.Add(i.Type);
 					}
-
-					items = list;
+					
+					items = detector.cleanDuplicates(list);
 
 					updateList(items);
 					refreshModsList();
@@ -284,7 +288,7 @@ namespace ExileConfigurator
 
 		private void helpAbout_Click(object sender, EventArgs e)
 		{
-			var about = new AboutForm();
+			var about = new FormAbout();
 			about.Show();
 		}
 
@@ -319,8 +323,8 @@ namespace ExileConfigurator
 
 		private void itemList_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			string name = itemList.GetItemText(itemList.SelectedItem);
-			var item = items.FirstOrDefault(o => o.Label == name);
+			string id = itemList.GetItemText(itemList.SelectedItem);
+			var item = detector.detect(items, id);
 			if (item != null)
 				loadItem(item);
 		}

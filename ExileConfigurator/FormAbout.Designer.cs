@@ -1,6 +1,6 @@
 ﻿namespace ExileConfigurator
 {
-	partial class AboutForm
+	partial class FormAbout
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -28,7 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutForm));
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAbout));
 			this.aboutAuthor = new System.Windows.Forms.Label();
 			this.aboutProjectLink = new System.Windows.Forms.LinkLabel();
 			this.aboutLicense = new System.Windows.Forms.RichTextBox();
