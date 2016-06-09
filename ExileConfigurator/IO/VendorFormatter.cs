@@ -11,7 +11,6 @@ namespace ExileConfigurator.IO
 	public class VendorFormatter
 	{
 		private const string FormatGroupComment = "///////////////////////////////////////////////////////////////////////////////\r\n// {0}\r\n///////////////////////////////////////////////////////////////////////////////";
-		private const string FormatClassString = "class {0}	{{ quality = {1}; price = {2}; }};";
 		private const string FormatGroupString = "class {0}\r\n{{\r\n\tname = \"{1}\";\r\n\ticon = \"a3\\ui_f\\data\\gui\\Rsc\\RscDisplayArsenal\\itemacc_ca.paa\";\r\n\titems[] =\r\n\t{{\r\n\t\t{2}\r\n\t}};\r\n}};";
 		private const string FormatClassName = "\"{0}\"";
 
@@ -20,24 +19,16 @@ namespace ExileConfigurator.IO
 			var sorted = sortItems(items);
 
 			string output = "";
-			string currentMod = null;
-			string currentType = null;
 			string groupLabel = string.Empty;
 			foreach(var i in sorted)
 			{
-				if(currentMod != i.Mod)
-					currentMod = i.Mod;
-				if(currentType != i.Type)
-					currentType = i.Type;
-
-				var temp = string.Format("{0} - {1}", currentMod.ToString(), currentType.ToString());
-				if(!groupLabel.Equals(temp))
+				if(!groupLabel.Equals(i.getGroupString()))
 				{
-					groupLabel = temp;
+					groupLabel = i.getGroupString();
 					output += Environment.NewLine + string.Format(FormatGroupComment, groupLabel) + Environment.NewLine;
 				}
 
-				var line = string.Format(FormatClassString, i.Id, i.Quality, i.Price);
+				var line = i.getClassString();
 				output += line + Environment.NewLine;
 			}
 
@@ -50,22 +41,18 @@ namespace ExileConfigurator.IO
 
 			string output = "";
 			var groupLists = new Dictionary<string, List<string>>();
-
-			string currentMod = null;
-			string currentType = null;
+			
 			string groupLabel = string.Empty;
 			foreach(var i in sorted)
 			{
-				if(currentMod != i.Mod)
-					currentMod = i.Mod;
-				if(currentType != i.Type)
-					currentType = i.Type;
+				if(!groupLabel.Equals(i.getGroupString()))
+				{
+					groupLabel = i.getGroupString();
+					if(!groupLists.ContainsKey(groupLabel))
+						groupLists.Add(groupLabel, new List<string>());
+				}
 
-				var groupName = string.Format("{0} - {1}", currentMod.ToString(), currentType.ToString());
-				if(!groupLists.ContainsKey(groupName))
-					groupLists.Add(groupName, new List<string>());
-
-				groupLists[groupName].Add(i.Id);
+				groupLists[groupLabel].Add(i.Id);
 			}
 
 			foreach(var key in groupLists.Keys)
