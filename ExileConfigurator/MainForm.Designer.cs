@@ -58,6 +58,7 @@
 			this.itemRemove = new System.Windows.Forms.Button();
 			this.itemListSearch = new System.Windows.Forms.TextBox();
 			this.itemListSearchLabel = new System.Windows.Forms.Label();
+			this.fileSaveAs = new System.Windows.Forms.ToolStripMenuItem();
 			this.mainMenu.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.itemPrice)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.itemQuality)).BeginInit();
@@ -80,6 +81,7 @@
 			this.menuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileOpen,
             this.fileSave,
+            this.fileSaveAs,
             this.menuFileExit});
 			this.menuFile.Name = "menuFile";
 			this.menuFile.Size = new System.Drawing.Size(37, 20);
@@ -88,21 +90,21 @@
 			// fileOpen
 			// 
 			this.fileOpen.Name = "fileOpen";
-			this.fileOpen.Size = new System.Drawing.Size(103, 22);
+			this.fileOpen.Size = new System.Drawing.Size(152, 22);
 			this.fileOpen.Text = "&Open";
 			this.fileOpen.Click += new System.EventHandler(this.fileOpen_Click);
 			// 
 			// fileSave
 			// 
 			this.fileSave.Name = "fileSave";
-			this.fileSave.Size = new System.Drawing.Size(103, 22);
+			this.fileSave.Size = new System.Drawing.Size(152, 22);
 			this.fileSave.Text = "&Save";
 			this.fileSave.Click += new System.EventHandler(this.fileSave_Click);
 			// 
 			// menuFileExit
 			// 
 			this.menuFileExit.Name = "menuFileExit";
-			this.menuFileExit.Size = new System.Drawing.Size(103, 22);
+			this.menuFileExit.Size = new System.Drawing.Size(152, 22);
 			this.menuFileExit.Text = "E&xit";
 			this.menuFileExit.Click += new System.EventHandler(this.menuFileExit_Click);
 			// 
@@ -351,6 +353,13 @@
 			this.itemListSearchLabel.TabIndex = 20;
 			this.itemListSearchLabel.Text = "Search:";
 			// 
+			// fileSaveAs
+			// 
+			this.fileSaveAs.Name = "fileSaveAs";
+			this.fileSaveAs.Size = new System.Drawing.Size(152, 22);
+			this.fileSaveAs.Text = "Save As...";
+			this.fileSaveAs.Click += new System.EventHandler(this.fileSaveAs_Click);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -420,6 +429,7 @@
 		private System.Windows.Forms.ToolStripMenuItem helpReportIssue;
 		private System.Windows.Forms.TextBox itemListSearch;
 		private System.Windows.Forms.Label itemListSearchLabel;
+		private System.Windows.Forms.ToolStripMenuItem fileSaveAs;
 	}
 }
 

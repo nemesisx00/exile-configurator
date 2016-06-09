@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -14,10 +15,11 @@ namespace ExileConfigurator
     {
 		private const string RegexSplitCapitals = "((?<=\\p{Ll})\\p{Lu}|\\p{Lu}(?=\\p{Ll}))";
 
-		protected List<Item> items;
-		protected List<Item> listItems;
-		protected List<string> mods;
-		protected List<string> types;
+		private string currentFilePath;
+		private List<Item> items;
+		private List<Item> listItems;
+		private List<string> mods;
+		private List<string> types;
 
         public MainForm()
         {
@@ -25,6 +27,7 @@ namespace ExileConfigurator
 
 			this.Text += " " + ConfigurationManager.AppSettings["version"];
 
+			currentFilePath = null;
 			items = new List<Item>();
 			listItems = new List<Item>();
 			mods = new List<string>();
@@ -176,21 +179,39 @@ namespace ExileConfigurator
 			itemType.DataSource = types;
 		}
 
-		private void saveListToFile()
+		private void saveListToFile(string filePath)
+		{
+			if(items.Count > 0 && !string.Empty.Equals(filePath))
+			{
+				var s = new Serializer<List<Item>>();
+				var output = s.toJson(items);
+				FileUtil.writeFile(output, currentFilePath);
+			}
+		}
+		
+		private void saveListToFile_saveAs()
 		{
 			if(items.Count > 0)
 			{
 				var s = new Serializer<List<Item>>();
 				var output = s.toJson(items);
-				FileUtil.writeFileDialog(output);
+				string filePath = FileUtil.saveFileDialog();
+				if(!string.Empty.Equals(filePath))
+				{
+					currentFilePath = filePath;
+					FileUtil.writeFile(output, filePath);
+				}
 			}
 		}
 
 		private void loadListFromFile()
 		{
-			var json = FileUtil.readFileDialog();
-			if(json != null && !string.Empty.Equals(json))
+			string filePath = FileUtil.readFileDialog();
+			var json = FileUtil.readFileFull(filePath);
+			if(!string.Empty.Equals(json))
 			{
+				currentFilePath = filePath;
+
 				var s = new Serializer<List<Item>>();
 				var list = s.fromJson(json);
 
@@ -234,7 +255,15 @@ namespace ExileConfigurator
 
 		private void fileSave_Click(object sender, EventArgs e)
 		{
-			saveListToFile();
+			if(currentFilePath == null || string.Empty.Equals(currentFilePath))
+				saveListToFile_saveAs();
+			else
+				saveListToFile(currentFilePath);
+		}
+
+		private void fileSaveAs_Click(object sender, EventArgs e)
+		{
+			saveListToFile_saveAs();
 		}
 
 		private void menuFileExit_Click(object sender, EventArgs e)
@@ -249,7 +278,8 @@ namespace ExileConfigurator
 			output += Environment.NewLine + Environment.NewLine;
 			output += vf.formatVendorList(items);
 
-			FileUtil.writeFileDialog(output, FileUtil.DefaultFileNameExportVendor, FileUtil.FileDialogFilterTextFiles);
+			string filePath = FileUtil.saveFileDialog(FileUtil.DefaultFileNameExportVendor, FileUtil.FileDialogFilterTextFiles);
+			FileUtil.writeFile(output, filePath);
 		}
 
 		private void helpAbout_Click(object sender, EventArgs e)

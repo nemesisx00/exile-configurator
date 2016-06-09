@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using System.Windows.Forms;
 
 namespace ExileConfigurator.IO
@@ -15,55 +10,68 @@ namespace ExileConfigurator.IO
 		public const string FileDialogFilter = "All files (*.*)|*.*";
 		public const string FileDialogFilterTextFiles = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
 
-		public static void writeFileDialog(string output)
+		public static string readFileFull(string filePath)
 		{
-			writeFileDialog(output, DefaultFileNameItemList, FileDialogFilter);
+			string output = string.Empty;
+			if(File.Exists(filePath))
+				output = File.ReadAllText(filePath);
+			return output;
 		}
 
-		public static void writeFileDialog(string output, string defaultFileName)
+		public static void writeFile(string output, string filePath)
 		{
-			writeFileDialog(output, defaultFileName, FileDialogFilter);
-		}
-
-		public static void writeFileDialog(string output, string defaultFileName, string filter)
-		{
-			if(output != null && output.Length > 0)
+			if(File.Exists(filePath) && output != null && !string.Empty.Equals(output))
 			{
-				var savefile = new SaveFileDialog();
-				savefile.FileName = defaultFileName;
-				savefile.Filter = filter;
-
-				switch(savefile.ShowDialog())
+				using(var sw = new StreamWriter(filePath))
 				{
-					case DialogResult.OK:
-						using (var sw = new StreamWriter(savefile.FileName))
-						{
-							sw.Write(output);
-						}
-						break;
-					default:
-						break;
+					sw.Write(output);
 				}
 			}
 		}
 
+		/// <summary>
+		/// Display the OpenFileDialog and get the file path selected by the user.
+		/// </summary>
+		/// <returns></returns>
 		public static string readFileDialog()
 		{
-			string output = null;
 			var openFile = new OpenFileDialog();
 			openFile.Filter = FileDialogFilter;
 
-			switch (openFile.ShowDialog())
-			{
-				case DialogResult.OK:
-					if (openFile.FileName != null)
-						output = File.ReadAllText(openFile.FileName);
-					break;
-				default:
-					break;
-			}
+			var filePath = string.Empty;
+			if(openFile.ShowDialog().Equals(DialogResult.OK) && openFile.FileName != null)
+				filePath = openFile.FileName;
 
-			return output;
+			return filePath;
+		}
+
+		public static string saveFileDialog()
+		{
+			return saveFileDialog(DefaultFileNameItemList, FileDialogFilter);
+		}
+
+		public static string saveFileDialog(string defaultFileName)
+		{
+			return saveFileDialog(defaultFileName, FileDialogFilter);
+		}
+
+		/// <summary>
+		/// Display the SaveFileDialog and get the file path selected by the user.
+		/// </summary>
+		/// <param name="defaultFileName"></param>
+		/// <param name="filter"></param>
+		/// <returns></returns>
+		public static string saveFileDialog(string defaultFileName, string filter)
+		{
+			var saveFile = new SaveFileDialog();
+			saveFile.FileName = defaultFileName;
+			saveFile.Filter = filter;
+
+			var filePath = string.Empty;
+			if(saveFile.ShowDialog().Equals(DialogResult.OK))
+				filePath = saveFile.FileName;
+
+			return filePath;
 		}
 	}
 }
