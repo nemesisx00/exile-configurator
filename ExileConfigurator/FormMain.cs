@@ -29,7 +29,7 @@ namespace ExileConfigurator
 
 			this.Text += " " + ConfigurationManager.AppSettings["version"];
 			
-			currentFilePath = null;
+			currentFilePath = string.Empty;
 			detector = new DuplicateDetector();
 			items = new List<Item>();
 			listItems = new List<Item>();
@@ -130,9 +130,9 @@ namespace ExileConfigurator
 			refreshList();
 		}
 
-		private void removeCurrentItem(string label)
+		private void removeCurrentItem(string id)
 		{
-			var item = items.FirstOrDefault(o => o.Label == label);
+			var item = detector.detect(items, id);
 			if(item != null)
 			{
 				items.Remove(item);
@@ -183,26 +183,24 @@ namespace ExileConfigurator
 			itemType.DataSource = types;
 		}
 
-		private void saveListToFile(string filePath)
+		private void saveListToFile()
 		{
-			if(items.Count > 0 && !string.Empty.Equals(filePath))
+			string filePath = FileUtil.saveFileDialog();
+			if(!string.Empty.Equals(filePath))
 			{
-				var s = new Serializer<List<Item>>();
-				var output = s.toJson(items);
-				FileUtil.writeFile(output, currentFilePath);
+				currentFilePath = filePath;
+				saveListToFile(filePath);
 			}
 		}
-		
-		private void saveListToFile_saveAs()
+
+		private void saveListToFile(string filePath)
 		{
 			if(items.Count > 0)
 			{
-				var s = new Serializer<List<Item>>();
-				var output = s.toJson(items);
-				string filePath = FileUtil.saveFileDialog();
 				if(!string.Empty.Equals(filePath))
 				{
-					currentFilePath = filePath;
+					var s = new Serializer<List<Item>>();
+					var output = s.toJson(items);
 					FileUtil.writeFile(output, filePath);
 				}
 			}
@@ -238,6 +236,7 @@ namespace ExileConfigurator
 				}
 			}
 		}
+
 		#endregion
 
 		#region Event Handlers
@@ -252,6 +251,7 @@ namespace ExileConfigurator
 		}
 
 		#region Menu Items
+
 		private void fileOpen_Click(object sender, EventArgs e)
 		{
 			loadListFromFile();
@@ -260,14 +260,14 @@ namespace ExileConfigurator
 		private void fileSave_Click(object sender, EventArgs e)
 		{
 			if(currentFilePath == null || string.Empty.Equals(currentFilePath))
-				saveListToFile_saveAs();
+				saveListToFile();
 			else
 				saveListToFile(currentFilePath);
 		}
 
 		private void fileSaveAs_Click(object sender, EventArgs e)
 		{
-			saveListToFile_saveAs();
+			saveListToFile();
 		}
 
 		private void menuFileExit_Click(object sender, EventArgs e)
@@ -297,9 +297,11 @@ namespace ExileConfigurator
 			var supportUrl = ConfigurationManager.AppSettings["supportUrl"];
 			Process.Start(supportUrl);
 		}
+
 		#endregion
 
 		#region Controls
+
 		private void itemListSearch_TextChanged(object sender, EventArgs e)
 		{
 			if(itemListSearch.Text.Length > 0)
@@ -332,20 +334,17 @@ namespace ExileConfigurator
 		private void itemNew_Click(object sender, EventArgs e)
 		{
 			clearItemFields();
-			itemName.Focus();
+			itemClassName.Focus();
 		}
 
 		private void itemSave_Click(object sender, EventArgs e)
 		{
-			string label = itemName.Text;
 			string id = itemClassName.Text;
 
-			if (string.Empty.Equals(label))
-				MessageBox.Show("Item Name is required!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			else if (string.Empty.Equals(id))
+			if (string.Empty.Equals(id))
 				MessageBox.Show("Class Name is required!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			else
-				saveCurrentItem(label);
+				saveCurrentItem(id);
 		}
 
 		private void itemRemove_Click(object sender, EventArgs e)
@@ -353,10 +352,11 @@ namespace ExileConfigurator
 			var response = MessageBox.Show("Are you sure you want to remove this item?", "Remove Item?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 			if(response == DialogResult.Yes)
 			{
-				string label = itemName.Text;
-				removeCurrentItem(label);
+				string id = itemClassName.Text;
+				removeCurrentItem(id);
 			}
 		}
+
 		#endregion
 
 		#endregion
