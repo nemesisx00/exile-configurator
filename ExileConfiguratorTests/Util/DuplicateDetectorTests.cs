@@ -1,4 +1,5 @@
-﻿using ExileConfigurator.Data;
+﻿using ExileConfigurator.Util;
+using ExileConfigurator.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
@@ -10,7 +11,7 @@ namespace ExileConfigurator.Util.Tests
 
 		private Item generateItem()
 		{
-			var item = new Item("Test", "Item", "test_item", "Test Item", 10, 1);
+			var item = new Item("Test", "Item", "test_item", 10, 1);
 			return item;
 		}
 
@@ -21,8 +22,7 @@ namespace ExileConfigurator.Util.Tests
 			item.Id += "_2";
 			items.Add(item);
 
-			item = generateItem();
-			items.Add(item);
+			items.Add(generateItem());
 
 			return items;
 		}
@@ -52,6 +52,25 @@ namespace ExileConfigurator.Util.Tests
 			var result = instance.detect(items, item);
 
 			Assert.AreNotEqual(expected, result);
+		}
+
+		[TestMethod()]
+		public void cleanDuplicatesTest()
+		{
+			var items = new List<Item>();
+			items.Add(generateItem());
+			items.Add(generateItem());
+			items.Add(generateItem());
+			items.Add(generateItem());
+
+			var expected = new List<Item>();
+			items.Add(generateItem());
+
+			var instance = new DuplicateDetector();
+			var result = instance.cleanDuplicates(items);
+
+			int expectedCount = 1;
+			Assert.AreEqual(expectedCount, result.Count);
 		}
 	}
 }

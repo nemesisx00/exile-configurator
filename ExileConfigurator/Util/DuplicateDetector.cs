@@ -14,17 +14,20 @@ namespace ExileConfigurator.Util
 
 		public Item detect(List<Item> haystack, Item needle)
 		{
-			var obj = haystack.Find(o => o.CompareTo(needle) == 0);
+			if(needle == null)
+				return null;
+
+			var obj = haystack.Find(o => o.Id.ToLower().Equals(needle.Id.ToLower()));
 			return obj;
 		}
 		
 		public List<Item> cleanDuplicates(List<Item> list)
 		{
 			var clean = new List<Item>();
-			foreach(var obj in list)
+			foreach(var i in list)
 			{
-				if(!clean.Contains(obj))
-					clean.Add(obj);
+				if(clean.Find(o => o.Id.ToLower().Equals(i.Id.ToLower())) == null)
+					clean.Add(i);
 			}
 			return clean;
 		}

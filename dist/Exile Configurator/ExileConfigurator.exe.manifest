@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ExileConfigurator.exe" size="888832">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ExileConfigurator.exe" size="888320">
       <assemblyIdentity name="ExileConfigurator" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>H/m6AewCx/GQquPdoDVaPdlgrEBBZ/SM5ygCFKfx/RA=</dsig:DigestValue>
+        <dsig:DigestValue>Hf9zn/ncMAvGiDtysay4ejP3i2mKmpTvSAEJ55XRCQY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -75,13 +75,13 @@
       <dsig:DigestValue>rpyyvVLkIpCu3gdhMrHC1OzTZpS5/OCAO8rbri1xzCo=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="ExileConfigurator.exe.config" size="438">
+  <file name="ExileConfigurator.exe.config" size="439">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>VHN1pS6Vf6GcWqwvHyRsbtcRYBS3gEOEv9/+B4S+2Ew=</dsig:DigestValue>
+      <dsig:DigestValue>2D78QnXrz3jyQYxFbYNYIeQXCC9bbHA0KQbyi/1qHjM=</dsig:DigestValue>
     </hash>
   </file>
   <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">

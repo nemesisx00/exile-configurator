@@ -15,8 +15,9 @@ namespace ExileConfigurator
 	public partial class FormMain : Form
     {
 		private const string RegexSplitCapitals = "((?<=\\p{Ll})\\p{Lu}|\\p{Lu}(?=\\p{Ll}))";
-		
+
 		private string currentFilePath;
+		private Item currentItem;
 		private DuplicateDetector detector;
 		private List<Item> items;
 		private List<Item> listItems;
@@ -28,8 +29,9 @@ namespace ExileConfigurator
             InitializeComponent();
 
 			this.Text += " " + ConfigurationManager.AppSettings["version"];
-			
+
 			currentFilePath = string.Empty;
+			currentItem = null;
 			detector = new DuplicateDetector();
 			items = new List<Item>();
 			listItems = new List<Item>();
@@ -88,14 +90,13 @@ namespace ExileConfigurator
 		/// <param name="name"></param>
 		/// <param name="className"></param>
 		/// <param name="price"></param>
-		private void updateItem(Item item, string mod, string type, string name, string className, int price, int quality)
+		private void updateItem(Item item, string mod, string type, string className, int price, int quality)
 		{
 			updateModList(mod);
 			updateTypeList(type);
 
 			item.Mod = mod;
 			item.Type = type;
-			item.Label = name;
 			item.Id = className;
 			item.Price = price;
 			item.Quality = quality;
@@ -103,7 +104,6 @@ namespace ExileConfigurator
 
 		private void loadItem(Item item)
 		{
-			itemName.Text = item.Label;
 			itemClassName.Text = item.Id;
 			itemMod.Text = item.Mod;
 			itemType.Text = item.Type;
@@ -116,14 +116,17 @@ namespace ExileConfigurator
 			var item = detector.detect(items, id);
 			if (item != null)
 			{
-				updateItem(item, itemMod.Text, itemType.Text, itemName.Text, id, (int)itemPrice.Value, (int)itemQuality.Value);
+				
+				updateItem(item, itemMod.Text, itemType.Text, id, (int)itemPrice.Value, (int)itemQuality.Value);
 			}
 			else
 			{
 				item = new Item();
-				updateItem(item, itemMod.Text, itemType.Text, itemName.Text, id, (int)itemPrice.Value, (int)itemQuality.Value);
+				updateItem(item, itemMod.Text, itemType.Text, id, (int)itemPrice.Value, (int)itemQuality.Value);
 				items.Add(item);
 			}
+
+			currentItem = item;
 
 			clearItemFields();
 			updateList(items);
@@ -144,7 +147,6 @@ namespace ExileConfigurator
 
 		private void clearItemFields()
 		{
-			itemName.Text = string.Empty;
 			itemClassName.Text = string.Empty;
 			itemMod.Text = string.Empty;
 			itemType.Text = string.Empty;
@@ -160,11 +162,16 @@ namespace ExileConfigurator
 
 		private void refreshList()
 		{
-			listItems = listItems.OrderBy(o => o.Mod).ThenBy(o => o.Type).ThenBy(o => o.Label).ToList();
+			listItems = listItems.OrderBy(o => o.Mod).ThenBy(o => o.Type).ThenBy(o => o.Id).ToList();
+			Item selectedItem = null;
+			if(currentItem != null)
+				selectedItem = listItems.Find(o => o.Equals(currentItem));
 
 			fileSave.Enabled = listItems.Count > 0;
 			itemList.DataSource = null;
 			itemList.DataSource = listItems;
+			if(selectedItem != null)
+				itemList.SelectedItem = selectedItem;
 		}
 
 		private void refreshModsList()
@@ -199,8 +206,11 @@ namespace ExileConfigurator
 			{
 				if(!string.Empty.Equals(filePath))
 				{
+					var cleaned = detector.cleanDuplicates(items);
+					var sorted = cleaned.OrderBy(o => o.Mod).ThenBy(o => o.Type).ToList();
+
 					var s = new Serializer<List<Item>>();
-					var output = s.toJson(items);
+					var output = s.toJson(sorted);
 					FileUtil.writeFile(output, filePath);
 				}
 			}
@@ -306,7 +316,7 @@ namespace ExileConfigurator
 		{
 			if(itemListSearch.Text.Length > 0)
 			{
-				List<Item> filtered = items.FindAll(delegate (Item i) { return i.Label.ToLower().Contains(itemListSearch.Text.ToLower()); }).ToList();
+				List<Item> filtered = items.FindAll(o => o.Id.ToLower().Contains(itemListSearch.Text.ToLower())).ToList();
 				updateList(filtered);
 			}
 			else
@@ -317,8 +327,8 @@ namespace ExileConfigurator
 
 		private void itemList_Click(object sender, EventArgs e)
 		{
-			string name = itemList.GetItemText(itemList.SelectedItem);
-			var item = items.FirstOrDefault(o => o.Label == name);
+			string id = itemList.GetItemText(itemList.SelectedItem);
+			var item = detector.detect(items, id);
 			if(item != null)
 				loadItem(item);
 		}

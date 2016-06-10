@@ -1,4 +1,5 @@
 ﻿using ExileConfigurator.Data;
+using ExileConfigurator.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,9 @@ namespace ExileConfigurator.IO
 
 		public string formatClassList(List<Item> items)
 		{
-			var sorted = sortItems(items);
+			var detector = new DuplicateDetector();
+			var cleaned = detector.cleanDuplicates(items);
+			var sorted = sortItems(cleaned);
 
 			string output = "";
 			string groupLabel = string.Empty;
@@ -37,7 +40,9 @@ namespace ExileConfigurator.IO
 
 		public string formatVendorList(List<Item> items)
 		{
-			var sorted = sortItems(items);
+			var detector = new DuplicateDetector();
+			var cleaned = detector.cleanDuplicates(items);
+			var sorted = sortItems(cleaned);
 
 			string output = "";
 			var groupLists = new Dictionary<string, List<string>>();

@@ -31,10 +31,10 @@ class test_myitem_2	{ quality = 2; price = 50; };
 		private List<Item> generateItemList()
 		{
 			var items = new List<Item>();
-			var item = new Item("Test", "Item", "test_myitem_1", "My Test Item 1", 25, 1);
+			var item = new Item("Test", "Item", "test_myitem_1", 25, 1);
 			items.Add(item);
 
-			item = new Item("Test", "Item", "test_myitem_2", "My Test Item 2", 50, 2);
+			item = new Item("Test", "Item", "test_myitem_2", 50, 2);
 			items.Add(item);
 
 			return items;

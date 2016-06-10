@@ -14,18 +14,16 @@ namespace ExileConfigurator.Data
 		public string Mod { get; set; }
 		public string Type { get; set; }
 		public string Id { get; set; }
-		public string Label { get; set; }
 		public int Price { get; set; }
 		public int Quality { get; set; }
 
 		public Item() { }
 
-		public Item(string mod, string type, string id, string label, int price, int quality)
+		public Item(string mod, string type, string id, int price, int quality)
 		{
 			Mod = mod;
 			Type = type;
 			Id = id;
-			Label = label;
 			Price = price;
 			Quality = quality;
 		}
@@ -83,11 +81,10 @@ namespace ExileConfigurator.Data
 			if(other != null)
 			{
 				return (Mod != null ? Mod.Equals(other.Mod) : other.Mod != null)
-					&& (Type != null ? Type.Equals(other.Type) : other.Type != null)
-					&& (Id != null ? Id.Equals(other.Id) : other.Id != null)
-					&& (Label != null ? Label.Equals(other.Label) : other.Label != null)
-					&& Price == other.Price
-					&& Quality == other.Quality;
+				&& (Type != null ? Type.Equals(other.Type) : other.Type != null)
+				&& (Id != null ? Id.Equals(other.Id) : other.Id != null)
+				&& Price == other.Price
+				&& Quality == other.Quality;
 			}
 
 			throw new ArgumentException("Object is not an Item");
@@ -105,8 +102,6 @@ namespace ExileConfigurator.Data
 					hash = hash * mult + Type.GetHashCode();
 				if(Id != null)
 					hash = hash * mult + Id.GetHashCode();
-				if(Label != null)
-					hash = hash * mult + Label.GetHashCode();
 				hash = hash * mult + Price.GetHashCode();
 				hash = hash * mult + Quality.GetHashCode();
 

@@ -20,7 +20,7 @@ namespace ExileConfigurator.IO
 
 		public static void writeFile(string output, string filePath)
 		{
-			if(File.Exists(filePath) && output != null && !string.Empty.Equals(output))
+			if(output != null && !string.Empty.Equals(output))
 			{
 				using(var sw = new StreamWriter(filePath))
 				{
