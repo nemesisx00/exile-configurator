@@ -1,5 +1,6 @@
 .vs/
 ExileConfigurator/bin/
 ExileConfigurator/obj/
+release/
 /ExileConfiguratorTests/bin/
 /ExileConfiguratorTests/obj/
