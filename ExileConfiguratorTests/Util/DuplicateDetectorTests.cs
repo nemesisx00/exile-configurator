@@ -1,32 +1,13 @@
-﻿using ExileConfigurator.Util;
-using ExileConfigurator.Data;
+﻿using ExileConfigurator.Data;
+using ExileConfiguratorTests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
 namespace ExileConfigurator.Util.Tests
 {
 	[TestClass()]
-	public class DuplicateDetectorTests
+	public class DuplicateDetectorTests : AbstractItemTest
 	{
-
-		private Item generateItem()
-		{
-			var item = new Item("Test", "Item", "test_item", 10, 1);
-			return item;
-		}
-
-		private List<Item> generateList()
-		{
-			var items = new List<Item>();
-			var item = generateItem();
-			item.Id += "_2";
-			items.Add(item);
-
-			items.Add(generateItem());
-
-			return items;
-		}
-
 		[TestMethod()]
 		public void detectTest_success()
 		{
