@@ -1,5 +1,4 @@
 ﻿using ExileConfigurator.Data;
-using System;
 using System.Collections.Generic;
 
 namespace ExileConfigurator.Util
@@ -8,7 +7,7 @@ namespace ExileConfigurator.Util
 	{
 		public Item detect(List<Item> haystack, string idNeedle)
 		{
-			var obj = haystack.Find(o => o.Id.Equals(idNeedle));
+			var obj = haystack.Find(o => o.EqualsId(idNeedle));
 			return obj;
 		}
 
@@ -17,7 +16,7 @@ namespace ExileConfigurator.Util
 			if(needle == null)
 				return null;
 
-			var obj = haystack.Find(o => o.Id.ToLower().Equals(needle.Id.ToLower()));
+			var obj = haystack.Find(o => o.EqualsId(needle));
 			return obj;
 		}
 		
@@ -26,7 +25,7 @@ namespace ExileConfigurator.Util
 			var clean = new List<Item>();
 			foreach(var i in list)
 			{
-				if(clean.Find(o => o.Id.ToLower().Equals(i.Id.ToLower())) == null)
+				if(!clean.Exists(o => o.EqualsId(i)))
 					clean.Add(i);
 			}
 			return clean;

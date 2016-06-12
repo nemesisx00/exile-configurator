@@ -5,8 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -17,10 +15,7 @@ namespace ExileConfigurator
 		private const string RegexSplitCapitals = "((?<=\\p{Ll})\\p{Lu}|\\p{Lu}(?=\\p{Ll}))";
 
 		private string currentFilePath;
-		private Item currentItem;
 		private DuplicateDetector detector;
-		private List<Item> items;
-		private List<Item> listItems;
 		private List<string> mods;
 		private List<string> types;
 
@@ -31,24 +26,26 @@ namespace ExileConfigurator
 			this.Text += " " + ConfigurationManager.AppSettings["version"];
 
 			currentFilePath = string.Empty;
-			currentItem = null;
 			detector = new DuplicateDetector();
-			items = new List<Item>();
-			listItems = new List<Item>();
 			mods = new List<string>();
 			types = new List<string>();
 
 			var rgx = new Regex(RegexSplitCapitals);
-			foreach(ItemType it in Enum.GetValues(typeof(ItemType)))
+			var itemTypes = ConfigurationManager.AppSettings["itemTypes"];
+			if(!string.Empty.Equals(itemTypes))
 			{
-				types.Add(rgx.Replace(it.ToString(), " $1").Trim());
+				var split = itemTypes.Split(new char[] { ';' });
+				foreach(var it in split)
+				{
+					types.Add(rgx.Replace(it, " $1").Trim());
+				}
 			}
 
 			itemMod.DataSource = mods;
 			itemType.DataSource = types;
 
 			clearItemFields();
-			refreshList();
+			itemList.refreshList();
 
 			attachEventListeners();
 		}
@@ -113,35 +110,29 @@ namespace ExileConfigurator
 
 		private void saveCurrentItem(string id)
 		{
-			var item = detector.detect(items, id);
+			var item = itemList.getItemById(id);
 			if (item != null)
 			{
-				
 				updateItem(item, itemMod.Text, itemType.Text, id, (int)itemPrice.Value, (int)itemQuality.Value);
 			}
 			else
 			{
 				item = new Item();
 				updateItem(item, itemMod.Text, itemType.Text, id, (int)itemPrice.Value, (int)itemQuality.Value);
-				items.Add(item);
+				itemList.addItem(item);
 			}
 
-			currentItem = item;
-
 			clearItemFields();
-			updateList(items);
-			refreshList();
+			itemList.refreshList();
 		}
 
 		private void removeCurrentItem(string id)
 		{
-			var item = detector.detect(items, id);
+			var item = itemList.getItemById(id);
 			if(item != null)
 			{
-				items.Remove(item);
+				itemList.removeItem(item);
 				clearItemFields();
-				updateList(items);
-				refreshList();
 			}
 		}
 
@@ -152,26 +143,6 @@ namespace ExileConfigurator
 			itemType.Text = string.Empty;
 			itemPrice.Value = 0;
 			itemQuality.Value = 0;
-		}
-
-		private void updateList(List<Item> il)
-		{
-			if(il != null)
-				listItems = il;
-		}
-
-		private void refreshList()
-		{
-			listItems = listItems.OrderBy(o => o.Mod).ThenBy(o => o.Type).ThenBy(o => o.Id).ToList();
-			Item selectedItem = null;
-			if(currentItem != null)
-				selectedItem = listItems.Find(o => o.Equals(currentItem));
-
-			fileSave.Enabled = listItems.Count > 0;
-			itemList.DataSource = null;
-			itemList.DataSource = listItems;
-			if(selectedItem != null)
-				itemList.SelectedItem = selectedItem;
 		}
 
 		private void refreshModsList()
@@ -202,15 +173,13 @@ namespace ExileConfigurator
 
 		private void saveListToFile(string filePath)
 		{
+			var items = itemList.getList();
 			if(items.Count > 0)
 			{
 				if(!string.Empty.Equals(filePath))
 				{
-					var cleaned = detector.cleanDuplicates(items);
-					var sorted = cleaned.OrderBy(o => o.Mod).ThenBy(o => o.Type).ToList();
-
 					var s = new Serializer<List<Item>>();
-					var output = s.toJson(sorted);
+					var output = s.toJson(items);
 					FileUtil.writeFile(output, filePath);
 				}
 			}
@@ -236,13 +205,10 @@ namespace ExileConfigurator
 						if(!types.Contains(i.Type))
 							types.Add(i.Type);
 					}
-					
-					items = detector.cleanDuplicates(list);
 
-					updateList(items);
 					refreshModsList();
 					refreshTypesList();
-					refreshList();
+					itemList.addItems(list);
 				}
 			}
 		}
@@ -288,9 +254,9 @@ namespace ExileConfigurator
 		private void exportVendor_Click(object sender, EventArgs e)
 		{
 			var vf = new VendorFormatter();
-			string output = vf.formatClassList(items);
+			string output = vf.formatClassList(itemList.getList());
 			output += Environment.NewLine + Environment.NewLine;
-			output += vf.formatVendorList(items);
+			output += vf.formatVendorList(itemList.getList());
 
 			string filePath = FileUtil.saveFileDialog(FileUtil.DefaultFileNameExportVendor, FileUtil.FileDialogFilterTextFiles);
 			FileUtil.writeFile(output, filePath);
@@ -314,21 +280,14 @@ namespace ExileConfigurator
 
 		private void itemListSearch_TextChanged(object sender, EventArgs e)
 		{
-			if(itemListSearch.Text.Length > 0)
-			{
-				List<Item> filtered = items.FindAll(o => o.Id.ToLower().Contains(itemListSearch.Text.ToLower())).ToList();
-				updateList(filtered);
-			}
-			else
-				updateList(items);
-
-			refreshList();
+			itemList.CurrentFilter = itemListSearch.Text;
+			itemList.refreshList();
 		}
 
 		private void itemList_Click(object sender, EventArgs e)
 		{
 			string id = itemList.GetItemText(itemList.SelectedItem);
-			var item = detector.detect(items, id);
+			var item = itemList.getItemById(id);
 			if(item != null)
 				loadItem(item);
 		}
@@ -336,7 +295,7 @@ namespace ExileConfigurator
 		private void itemList_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			string id = itemList.GetItemText(itemList.SelectedItem);
-			var item = detector.detect(items, id);
+			var item = itemList.getItemById(id);
 			if (item != null)
 				loadItem(item);
 		}

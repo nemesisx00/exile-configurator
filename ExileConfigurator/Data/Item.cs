@@ -6,7 +6,7 @@ namespace ExileConfigurator.Data
 	/// Class representing a single in-game object for the purposes of generating the necessary
 	/// configuration code.
 	/// </summary>
-	public class Item : IComparable
+	public class Item : IComparable<Item>
 	{
 		private const string FormatClassString = "class {0}	{{ quality = {1}; price = {2}; }};";
 		private const string FormatGroupString = "{0} - {1}";
@@ -16,16 +16,22 @@ namespace ExileConfigurator.Data
 		public string Id { get; set; }
 		public int Price { get; set; }
 		public int Quality { get; set; }
+		public string Description { get; set; }
 
 		public Item() { }
 
 		public Item(string mod, string type, string id, int price, int quality)
+			: this(mod, type, id, price, quality, string.Empty)
+		{ }
+
+		public Item(string mod, string type, string id, int price, int quality, string description)
 		{
 			Mod = mod;
 			Type = type;
 			Id = id;
 			Price = price;
 			Quality = quality;
+			Description = description;
 		}
 
 		/// <summary>
@@ -52,24 +58,40 @@ namespace ExileConfigurator.Data
 			return group;
 		}
 
+		/// <summary>
+		/// Case-insensitive ID comparison
+		/// </summary>
+		/// <param name="i"></param>
+		/// <returns></returns>
+		public bool EqualsId(Item i)
+		{
+			return string.Equals(Id, i.Id, StringComparison.OrdinalIgnoreCase);
+		}
+
+		/// <summary>
+		/// Case-insensitive ID comparison
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
+		public bool EqualsId(string id)
+		{
+			return string.Equals(Id, id, StringComparison.OrdinalIgnoreCase);
+		}
+
 		#region Interfaces
 
-		public int CompareTo(object obj)
+		public int CompareTo(Item other)
 		{
-			if(obj == null)
+			if(other == null)
 				return 1;
 
-			var other = obj as Item;
-			if(other != null)
-				return Id.CompareTo(other.Id);
-
-			throw new ArgumentException("Object is not an Item");
+			return Id.CompareTo(other.Id);
 		}
 
 		#endregion
-
+		
 		#region Overrides
-
+		
 		public override string ToString() { return Id; }
 
 		public override bool Equals(object obj)
