@@ -57,9 +57,9 @@
 			this.itemListSearch = new System.Windows.Forms.TextBox();
 			this.itemListSearchLabel = new System.Windows.Forms.Label();
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-			this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
 			this.itemDescriptionLabel = new System.Windows.Forms.Label();
 			this.itemDescription = new System.Windows.Forms.TextBox();
+			this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
 			this.itemList = new ExileConfigurator.UI.ItemList();
 			this.mainMenu.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.itemPrice)).BeginInit();
@@ -370,25 +370,6 @@
 			this.tableLayoutPanel1.Size = new System.Drawing.Size(345, 220);
 			this.tableLayoutPanel1.TabIndex = 22;
 			// 
-			// tableLayoutPanel2
-			// 
-			this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.tableLayoutPanel2.ColumnCount = 2;
-			this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-			this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-			this.tableLayoutPanel2.Controls.Add(this.itemListSearchLabel, 0, 0);
-			this.tableLayoutPanel2.Controls.Add(this.itemListSearch, 1, 0);
-			this.tableLayoutPanel2.Controls.Add(this.itemList, 0, 1);
-			this.tableLayoutPanel2.Location = new System.Drawing.Point(12, 27);
-			this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-			this.tableLayoutPanel2.RowCount = 2;
-			this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-			this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.tableLayoutPanel2.Size = new System.Drawing.Size(299, 249);
-			this.tableLayoutPanel2.TabIndex = 23;
-			// 
 			// itemDescriptionLabel
 			// 
 			this.itemDescriptionLabel.AutoSize = true;
@@ -410,6 +391,25 @@
 			this.itemDescription.Name = "itemDescription";
 			this.itemDescription.Size = new System.Drawing.Size(270, 82);
 			this.itemDescription.TabIndex = 18;
+			// 
+			// tableLayoutPanel2
+			// 
+			this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.tableLayoutPanel2.ColumnCount = 2;
+			this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+			this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+			this.tableLayoutPanel2.Controls.Add(this.itemListSearchLabel, 0, 0);
+			this.tableLayoutPanel2.Controls.Add(this.itemListSearch, 1, 0);
+			this.tableLayoutPanel2.Controls.Add(this.itemList, 0, 1);
+			this.tableLayoutPanel2.Location = new System.Drawing.Point(12, 27);
+			this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+			this.tableLayoutPanel2.RowCount = 2;
+			this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+			this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.tableLayoutPanel2.Size = new System.Drawing.Size(299, 249);
+			this.tableLayoutPanel2.TabIndex = 23;
 			// 
 			// itemList
 			// 

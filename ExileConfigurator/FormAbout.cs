@@ -7,6 +7,8 @@ namespace ExileConfigurator
 {
 	public partial class FormAbout : Form
 	{
+		private const string JsonNetUrl = "http://www.newtonsoft.com/json";
+
 		public FormAbout()
 		{
 			InitializeComponent();
@@ -24,6 +26,11 @@ namespace ExileConfigurator
 		{
 			var projectUrl = ConfigurationManager.AppSettings["projectUrl"];
 			Process.Start(projectUrl);
+		}
+
+		private void aboutJsonNetLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		{
+			Process.Start(JsonNetUrl);
 		}
 	}
 }
