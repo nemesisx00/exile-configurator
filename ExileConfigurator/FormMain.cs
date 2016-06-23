@@ -253,14 +253,12 @@ namespace ExileConfigurator
 
 		private void exportVendor_Click(object sender, EventArgs e)
 		{
-			var vf = new VendorFormatter();
-			string output = vf.formatClassList(itemList.getList());
-			output += Environment.NewLine + Environment.NewLine;
-			output += vf.formatVendorList(itemList.getList());
-
 			string filePath = FileUtil.saveFileDialog(FileUtil.DefaultFileNameExportVendor, FileUtil.FileDialogFilterTextFiles);
 			if(!String.Empty.Equals(filePath))
 			{
+				var vf = new VendorFormatter();
+				var output = vf.formatAllList(itemList.getList());
+
 				FileUtil.writeFile(output, filePath);
 			}
 		}

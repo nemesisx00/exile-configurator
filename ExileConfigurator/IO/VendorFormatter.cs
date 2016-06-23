@@ -3,6 +3,7 @@ using ExileConfigurator.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace ExileConfigurator.IO
 {
@@ -15,38 +16,85 @@ namespace ExileConfigurator.IO
 		private const string FormatGroupString = "class {0}\r\n{{\r\n\tname = \"{1}\";\r\n\ticon = \"a3\\ui_f\\data\\gui\\Rsc\\RscDisplayArsenal\\itemacc_ca.paa\";\r\n\titems[] =\r\n\t{{\r\n\t\t{2}\r\n\t}};\r\n}};";
 		private const string FormatClassName = "\"{0}\"";
 
-		public string formatClassList(List<Item> items)
+		public string formatAllList(List<Item> items) { return formatAllList(items, true); }
+		public string formatAllList(List<Item> items, bool clean)
 		{
-			var detector = new DuplicateDetector();
-			var cleaned = detector.cleanDuplicates(items);
-			var sorted = sortItems(cleaned);
+			var sb = new StringBuilder();
 
-			string output = "";
+			List<Item> itemList;
+			if(clean)
+				itemList = cleanList(items);
+			else
+				itemList = sortItems(items);
+
+			sb.Append(formatClassList(items, false));
+			sb.Append(formatVendorList(items, false));
+			sb.Append(formatGroupList(items, false));
+
+			return sb.ToString();
+		}
+
+		public string formatClassList(List<Item> items) { return formatClassList(items, true); }
+		public string formatClassList(List<Item> items, bool clean)
+		{
+			List<Item> sorted = null;
+			if(clean)
+				sorted = cleanList(items);
+			else
+				sorted = sortItems(items);
+
+			var sb = new StringBuilder();
 			string groupLabel = String.Empty;
 			foreach(var i in sorted)
 			{
 				if(!groupLabel.Equals(i.getGroupString()))
 				{
 					groupLabel = i.getGroupString();
-					output += Environment.NewLine + String.Format(FormatGroupComment, groupLabel) + Environment.NewLine;
+					sb.AppendLine();
+					sb.AppendLine(String.Format(FormatGroupComment, groupLabel));
 				}
-
-				var line = i.getClassString();
-				output += line + Environment.NewLine;
+				sb.AppendLine(i.getClassString());
 			}
 
-			return output;
+			return sb.ToString();
 		}
 
-		public string formatVendorList(List<Item> items)
+		public string formatGroupList(List<Item> items) { return formatGroupList(items, true); }
+		public string formatGroupList(List<Item> items, bool clean)
 		{
-			var detector = new DuplicateDetector();
-			var cleaned = detector.cleanDuplicates(items);
-			var sorted = sortItems(cleaned);
+			List<Item> sorted = null;
+			if(clean)
+				sorted = cleanList(items);
+			else
+				sorted = sortItems(items);
 
-			string output = "";
-			var groupLists = new Dictionary<string, List<string>>();
+			var sb = new StringBuilder();
+			string groupLabel = String.Empty;
+			foreach(var i in sorted)
+			{
+				if(!groupLabel.Equals(i.getGroupString()))
+				{
+					groupLabel = i.getGroupString();
+
+					if(sb.Length > 0)
+						sb.AppendLine(",");
+					sb.AppendFormat(FormatClassName, groupLabel.Replace("-", "").Replace(" ", ""));
+				}
+			}
+
+			return sb.ToString();
+		}
+
+		public string formatVendorList(List<Item> items) { return formatVendorList(items, true); }
+		public string formatVendorList(List<Item> items, bool clean)
+		{
+			List<Item> sorted = null;
+			if(clean)
+				sorted = cleanList(items);
+			else
+				sorted = sortItems(items);
 			
+			var groupLists = new Dictionary<string, List<string>>();
 			string groupLabel = String.Empty;
 			foreach(var i in sorted)
 			{
@@ -60,22 +108,37 @@ namespace ExileConfigurator.IO
 				groupLists[groupLabel].Add(i.Id);
 			}
 
+			var sb = new StringBuilder();
 			foreach(var key in groupLists.Keys)
 			{
 				List<string> ids = groupLists[key];
 
-				string idList = String.Empty;
+				var idList = new StringBuilder();
 				foreach(var id in ids)
 				{
 					if(idList.Length > 0)
-						idList += ",\r\n\t\t";
-					idList += String.Format(FormatClassName, id);
+					{
+						idList.AppendLine(",");
+						idList.Append("\t\t");
+					}
+					idList.AppendFormat(FormatClassName, id);
 				}
-				
-				output += String.Format(FormatGroupString, key.Replace("-", "").Replace(" ", ""), key, idList) + Environment.NewLine + Environment.NewLine;
+
+				sb.AppendFormat(FormatGroupString, key.Replace("-", "").Replace(" ", ""), key, idList);
+				sb.AppendLine();
+				sb.AppendLine();
 			}
 
-			return output;
+			return sb.ToString();
+		}
+
+		private List<Item> cleanList(List<Item> items)
+		{
+			var detector = new DuplicateDetector();
+			var cleaned = detector.cleanDuplicates(items);
+			var sorted = sortItems(cleaned);
+
+			return sorted;
 		}
 
 		private List<Item> sortItems(List<Item> items)
