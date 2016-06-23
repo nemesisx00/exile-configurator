@@ -32,7 +32,7 @@ namespace ExileConfigurator
 
 			var rgx = new Regex(RegexSplitCapitals);
 			var itemTypes = ConfigurationManager.AppSettings["itemTypes"];
-			if(!string.Empty.Equals(itemTypes))
+			if(!String.Empty.Equals(itemTypes))
 			{
 				var split = itemTypes.Split(new char[] { ';' });
 				foreach(var it in split)
@@ -138,9 +138,9 @@ namespace ExileConfigurator
 
 		private void clearItemFields()
 		{
-			itemClassName.Text = string.Empty;
-			itemMod.Text = string.Empty;
-			itemType.Text = string.Empty;
+			itemClassName.Text = String.Empty;
+			itemMod.Text = String.Empty;
+			itemType.Text = String.Empty;
 			itemPrice.Value = 0;
 			itemQuality.Value = 0;
 		}
@@ -164,7 +164,7 @@ namespace ExileConfigurator
 		private void saveListToFile()
 		{
 			string filePath = FileUtil.saveFileDialog();
-			if(!string.Empty.Equals(filePath))
+			if(!String.Empty.Equals(filePath))
 			{
 				currentFilePath = filePath;
 				saveListToFile(filePath);
@@ -176,7 +176,7 @@ namespace ExileConfigurator
 			var items = itemList.getList();
 			if(items.Count > 0)
 			{
-				if(!string.Empty.Equals(filePath))
+				if(!String.Empty.Equals(filePath))
 				{
 					var s = new Serializer<List<Item>>();
 					var output = s.toJson(items);
@@ -189,7 +189,7 @@ namespace ExileConfigurator
 		{
 			string filePath = FileUtil.readFileDialog();
 			var json = FileUtil.readFileFull(filePath);
-			if(!string.Empty.Equals(json))
+			if(!String.Empty.Equals(json))
 			{
 				currentFilePath = filePath;
 
@@ -235,7 +235,7 @@ namespace ExileConfigurator
 
 		private void fileSave_Click(object sender, EventArgs e)
 		{
-			if(currentFilePath == null || string.Empty.Equals(currentFilePath))
+			if(currentFilePath == null || String.Empty.Equals(currentFilePath))
 				saveListToFile();
 			else
 				saveListToFile(currentFilePath);
@@ -259,7 +259,10 @@ namespace ExileConfigurator
 			output += vf.formatVendorList(itemList.getList());
 
 			string filePath = FileUtil.saveFileDialog(FileUtil.DefaultFileNameExportVendor, FileUtil.FileDialogFilterTextFiles);
-			FileUtil.writeFile(output, filePath);
+			if(!String.Empty.Equals(filePath))
+			{
+				FileUtil.writeFile(output, filePath);
+			}
 		}
 
 		private void helpAbout_Click(object sender, EventArgs e)

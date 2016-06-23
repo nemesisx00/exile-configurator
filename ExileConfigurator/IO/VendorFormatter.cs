@@ -22,13 +22,13 @@ namespace ExileConfigurator.IO
 			var sorted = sortItems(cleaned);
 
 			string output = "";
-			string groupLabel = string.Empty;
+			string groupLabel = String.Empty;
 			foreach(var i in sorted)
 			{
 				if(!groupLabel.Equals(i.getGroupString()))
 				{
 					groupLabel = i.getGroupString();
-					output += Environment.NewLine + string.Format(FormatGroupComment, groupLabel) + Environment.NewLine;
+					output += Environment.NewLine + String.Format(FormatGroupComment, groupLabel) + Environment.NewLine;
 				}
 
 				var line = i.getClassString();
@@ -47,7 +47,7 @@ namespace ExileConfigurator.IO
 			string output = "";
 			var groupLists = new Dictionary<string, List<string>>();
 			
-			string groupLabel = string.Empty;
+			string groupLabel = String.Empty;
 			foreach(var i in sorted)
 			{
 				if(!groupLabel.Equals(i.getGroupString()))
@@ -64,15 +64,15 @@ namespace ExileConfigurator.IO
 			{
 				List<string> ids = groupLists[key];
 
-				string idList = string.Empty;
+				string idList = String.Empty;
 				foreach(var id in ids)
 				{
 					if(idList.Length > 0)
 						idList += ",\r\n\t\t";
-					idList += string.Format(FormatClassName, id);
+					idList += String.Format(FormatClassName, id);
 				}
 				
-				output += string.Format(FormatGroupString, key.Replace("-", "").Replace(" ", ""), key, idList) + Environment.NewLine + Environment.NewLine;
+				output += String.Format(FormatGroupString, key.Replace("-", "").Replace(" ", ""), key, idList) + Environment.NewLine + Environment.NewLine;
 			}
 
 			return output;

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace ExileConfigurator.IO
@@ -12,7 +13,7 @@ namespace ExileConfigurator.IO
 
 		public static string readFileFull(string filePath)
 		{
-			string output = string.Empty;
+			string output = String.Empty;
 			if(File.Exists(filePath))
 				output = File.ReadAllText(filePath);
 			return output;
@@ -20,7 +21,7 @@ namespace ExileConfigurator.IO
 
 		public static void writeFile(string output, string filePath)
 		{
-			if(output != null && !string.Empty.Equals(output))
+			if(output != null && !String.Empty.Equals(output))
 			{
 				using(var sw = new StreamWriter(filePath))
 				{
@@ -38,7 +39,7 @@ namespace ExileConfigurator.IO
 			var openFile = new OpenFileDialog();
 			openFile.Filter = FileDialogFilter;
 
-			var filePath = string.Empty;
+			var filePath = String.Empty;
 			if(openFile.ShowDialog().Equals(DialogResult.OK) && openFile.FileName != null)
 				filePath = openFile.FileName;
 
@@ -67,7 +68,7 @@ namespace ExileConfigurator.IO
 			saveFile.FileName = defaultFileName;
 			saveFile.Filter = filter;
 
-			var filePath = string.Empty;
+			var filePath = String.Empty;
 			if(saveFile.ShowDialog().Equals(DialogResult.OK))
 				filePath = saveFile.FileName;
 

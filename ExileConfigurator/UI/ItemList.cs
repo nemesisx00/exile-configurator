@@ -1,5 +1,6 @@
 ﻿using ExileConfigurator.Data;
 using ExileConfigurator.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -76,7 +77,7 @@ namespace ExileConfigurator.UI
 			orderList();
 
 			var temp = items;
-			if(!string.Empty.Equals(CurrentFilter))
+			if(!String.Empty.Equals(CurrentFilter))
 				temp = getFilteredList(CurrentFilter);
 
 			var selected = SelectedItem;

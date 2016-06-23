@@ -94,28 +94,28 @@
 			// fileOpen
 			// 
 			this.fileOpen.Name = "fileOpen";
-			this.fileOpen.Size = new System.Drawing.Size(123, 22);
+			this.fileOpen.Size = new System.Drawing.Size(152, 22);
 			this.fileOpen.Text = "&Open";
 			this.fileOpen.Click += new System.EventHandler(this.fileOpen_Click);
 			// 
 			// fileSave
 			// 
 			this.fileSave.Name = "fileSave";
-			this.fileSave.Size = new System.Drawing.Size(123, 22);
+			this.fileSave.Size = new System.Drawing.Size(152, 22);
 			this.fileSave.Text = "&Save";
 			this.fileSave.Click += new System.EventHandler(this.fileSave_Click);
 			// 
 			// fileSaveAs
 			// 
 			this.fileSaveAs.Name = "fileSaveAs";
-			this.fileSaveAs.Size = new System.Drawing.Size(123, 22);
+			this.fileSaveAs.Size = new System.Drawing.Size(152, 22);
 			this.fileSaveAs.Text = "Save As...";
 			this.fileSaveAs.Click += new System.EventHandler(this.fileSaveAs_Click);
 			// 
 			// menuFileExit
 			// 
 			this.menuFileExit.Name = "menuFileExit";
-			this.menuFileExit.Size = new System.Drawing.Size(123, 22);
+			this.menuFileExit.Size = new System.Drawing.Size(152, 22);
 			this.menuFileExit.Text = "E&xit";
 			this.menuFileExit.Click += new System.EventHandler(this.menuFileExit_Click);
 			// 
