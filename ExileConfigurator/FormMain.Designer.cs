@@ -94,6 +94,7 @@
 			// fileOpen
 			// 
 			this.fileOpen.Name = "fileOpen";
+			this.fileOpen.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
 			this.fileOpen.Size = new System.Drawing.Size(152, 22);
 			this.fileOpen.Text = "&Open";
 			this.fileOpen.Click += new System.EventHandler(this.fileOpen_Click);
@@ -101,6 +102,7 @@
 			// fileSave
 			// 
 			this.fileSave.Name = "fileSave";
+			this.fileSave.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
 			this.fileSave.Size = new System.Drawing.Size(152, 22);
 			this.fileSave.Text = "&Save";
 			this.fileSave.Click += new System.EventHandler(this.fileSave_Click);
@@ -130,7 +132,8 @@
 			// exportVendor
 			// 
 			this.exportVendor.Name = "exportVendor";
-			this.exportVendor.Size = new System.Drawing.Size(132, 22);
+			this.exportVendor.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
+			this.exportVendor.Size = new System.Drawing.Size(172, 22);
 			this.exportVendor.Text = "&Vendor List";
 			this.exportVendor.Click += new System.EventHandler(this.exportVendor_Click);
 			// 
@@ -434,6 +437,7 @@
 			this.Controls.Add(this.itemSave);
 			this.Controls.Add(this.mainMenu);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+			this.KeyPreview = true;
 			this.MainMenuStrip = this.mainMenu;
 			this.MinimumSize = new System.Drawing.Size(690, 327);
 			this.Name = "FormMain";
